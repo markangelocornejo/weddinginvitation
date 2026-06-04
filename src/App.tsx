@@ -8,12 +8,15 @@ import { GallerySection } from './components/GallerySection'
 import { GiftSection } from './components/GiftSection'
 import { HeroSection } from './components/HeroSection'
 import { InvitationMessage } from './components/InvitationMessage'
+import { MusicToggle } from './components/MusicToggle'
 import { RSVPPromptSection } from './components/RSVPPromptSection'
 import { RSVPSection } from './components/RSVPSection'
 import { SaveTheDateSection } from './components/SaveTheDateSection'
 import { TimelineSection } from './components/TimelineSection'
 import { VenueSection } from './components/VenueSection'
 import { invitationData } from './data/invitationData'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 function App() {
   const [isIntroVisible, setIsIntroVisible] = useState(true)
@@ -30,6 +33,7 @@ function App() {
 
   return (
     <>
+      {/* Envelope intro overlay */}
       <AnimatePresence>
         {isIntroVisible && (
           <EnvelopeIntro
@@ -38,14 +42,33 @@ function App() {
           />
         )}
       </AnimatePresence>
+
+      {/* Persistent music toggle (stays after intro closes) */}
+      {!isIntroVisible && (
+        <div className="fixed bottom-4 right-4 z-30 sm:bottom-6 sm:right-6">
+          <MusicToggle />
+        </div>
+      )}
+
+      {/* Main invitation content — slides upward seamlessly */}
       <motion.main
         className="invitation-canvas"
-        initial={{ opacity: 0, y: 120 }}
-        animate={isPageRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 120 }}
-        transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 80 }}
+        animate={isPageRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 80 }}
+        transition={{ duration: 1.4, ease }}
       >
-        <SaveTheDateSection /><HeroSection /><InvitationMessage /><RSVPPromptSection /><EventDetails />
-        <VenueSection /><TimelineSection /><GallerySection /><FinerDetailsSection /><GiftSection /><RSVPSection /><ClosingSection />
+        <SaveTheDateSection />
+        <HeroSection />
+        <InvitationMessage />
+        <RSVPPromptSection />
+        <EventDetails />
+        <VenueSection />
+        <TimelineSection />
+        <GallerySection />
+        <FinerDetailsSection />
+        <GiftSection />
+        <RSVPSection />
+        <ClosingSection />
       </motion.main>
     </>
   )

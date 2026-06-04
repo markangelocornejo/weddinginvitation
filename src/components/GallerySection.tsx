@@ -44,7 +44,7 @@ export function GallerySection() {
         viewport={{ once: true, amount: 0.12 }}
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.11 } } }}
       >
-        {invitationData.gallery.slice(0, 4).map((image, index) => (
+        {invitationData.gallery.map((image, index) => (
           <motion.button
             className={`group relative bg-[#FDF8F0] p-2 pb-7 shadow-[0_12px_22px_rgba(122,90,58,0.16)] ${photoStyles[index % photoStyles.length]}`}
             type="button"

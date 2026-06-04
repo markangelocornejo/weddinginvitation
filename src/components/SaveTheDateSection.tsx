@@ -2,12 +2,10 @@ import { motion } from 'framer-motion'
 import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
 import { CountdownSection } from './CountdownSection'
 import { FirstInvitationCard } from './FirstInvitationCard'
-import { MusicToggle } from './MusicToggle'
 
 export function SaveTheDateSection() {
   return (
     <section className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 py-12 text-center sm:px-7 sm:py-16 lg:py-20">
-      <MusicToggle />
       <FloralArtwork className="absolute -left-16 bottom-0 h-72 w-56 opacity-80 lg:h-96 lg:w-72" />
       <FloralArtwork className="absolute -right-16 top-0 h-60 w-48 rotate-180 opacity-62 lg:h-80 lg:w-64" />
       <div className="pointer-events-none absolute left-1/2 top-[62%] h-28 w-[88%] max-w-md -translate-x-1/2 rounded-sm bg-[#D5B892]/45 shadow-[0_18px_34px_rgba(122,90,58,0.12)] [clip-path:polygon(0_0,50%_62%,100%_0,100%_100%,0_100%)] lg:h-32 lg:max-w-lg" />
