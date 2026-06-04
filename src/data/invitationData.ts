@@ -58,12 +58,12 @@ export const invitationData = {
     { time: '12:00 NN', title: 'Reception', detail: 'Ravintola Sitrus', icon: 'reception' },
   ],
   gallery: [
-    'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=900&q=82',
-    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=82',
-    'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=82',
-    'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=900&q=82',
-    'https://images.unsplash.com/photo-1519741347686-c1e0a0df3f90?auto=format&fit=crop&w=900&q=82',
-    'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=82',
+    '/images/138c57ae-c2da-4e6a-9807-e66a2da19952.jpg',
+    '/images/45fee306-beb6-4e44-a6c8-7ab50d76eb74.jpg',
+    '/images/800d12bb-9424-47e2-89b5-b2eae6861c78.jpg',
+    '/images/8b7ea895-1835-4f74-a399-3ac475c2199d.jpg',
+    '/images/981e4a22-6810-4fc2-bb46-0caee2dd84f2.jpg',
+    '/images/a2f9a558-161e-4a33-b6a2-8a717bd3a2c3.jpg',
   ],
   dressCode: {
     title: 'Garden Formal',
