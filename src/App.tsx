@@ -5,7 +5,6 @@ import { EnvelopeIntro } from './components/EnvelopeIntro'
 import { EventDetails } from './components/EventDetails'
 import { FinerDetailsSection } from './components/FinerDetailsSection'
 import { GallerySection } from './components/GallerySection'
-import { GiftSection } from './components/GiftSection'
 import { HeroSection } from './components/HeroSection'
 import { InvitationMessage } from './components/InvitationMessage'
 import { MusicToggle } from './components/MusicToggle'
@@ -68,7 +67,6 @@ function App() {
         <TimelineSection />
         <GallerySection />
         <FinerDetailsSection />
-        <GiftSection />
         <RSVPSection />
         <ClosingSection />
       </motion.main>

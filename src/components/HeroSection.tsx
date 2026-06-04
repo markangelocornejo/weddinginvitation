@@ -17,7 +17,7 @@ export function HeroSection() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div>
+        <div className="text-center lg:text-center">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]">
             {invitation.eyebrow}
           </p>
