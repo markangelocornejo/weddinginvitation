@@ -52,6 +52,8 @@ body {
     radial-gradient(circle at 24% 68%, rgba(192, 138, 90, .08) 0 1px, transparent 1.5px),
     linear-gradient(90deg, rgba(245, 235, 221, .5), transparent 18%, transparent 82%, rgba(245, 235, 221, .5));
   background-size: 58px 58px, 73px 73px, 89px 89px, 100% 100%;
+  margin-inline: auto;
+  max-width: 1440px;
   overflow: hidden;
 }
 .invitation-canvas > section,
