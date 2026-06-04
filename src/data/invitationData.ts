@@ -74,10 +74,9 @@ export const invitationData = {
   motif: {
     title: 'Wedding Motif',
     message:
-      'We would love to see our guests in colors inspired by champagne, beige, ivory, and soft brown.',
-    attireNote: 'Guests may wear semi-formal or formal attire.',
+      'We would love to see our guests in colors inspired by champagne, beige, and soft brown.',
+    attireNote: 'Kindly avoid wearing white, ivory, and overly casual attire.',
     colors: [
-      { name: 'Ivory', value: '#FDF8F0' },
       { name: 'Champagne', value: '#D5B892' },
       { name: 'Beige', value: '#DCC8AA' },
       { name: 'Caramel', value: '#C08A5A' },
