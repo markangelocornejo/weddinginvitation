@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ClosingSection } from './components/ClosingSection'
 import { EnvelopeIntro } from './components/EnvelopeIntro'
 import { EventDetails } from './components/EventDetails'
@@ -21,6 +21,7 @@ const ease = [0.22, 1, 0.36, 1] as const
 function App() {
   const [isIntroVisible, setIsIntroVisible] = useState(true)
   const [isPageRevealed, setIsPageRevealed] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
   const revealPage = useCallback(() => setIsPageRevealed(true), [])
   const dismissIntro = useCallback(() => setIsIntroVisible(false), [])
 
@@ -52,10 +53,12 @@ function App() {
 
       {/* Main invitation content — slides upward seamlessly */}
       <motion.main
-        className="invitation-canvas"
-        initial={{ opacity: 0, y: 80 }}
-        animate={isPageRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 80 }}
-        transition={{ duration: 1.4, ease }}
+        className={`invitation-canvas ${isIntroVisible ? 'pointer-events-none' : ''}`}
+        aria-hidden={isIntroVisible}
+        inert={isIntroVisible}
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 80 }}
+        animate={isPageRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: shouldReduceMotion ? 0 : 80 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.4, ease }}
       >
         <SaveTheDateSection />
         <HeroSection />

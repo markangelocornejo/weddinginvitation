@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, type Variants } from 'framer-motion'
+import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { Heart } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
 import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
@@ -87,30 +87,34 @@ const countdownVariants: Variants = {
 
 export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
   const [isOpening, setIsOpening] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isOpening) return
 
-    // Reveal main content (start sliding in) while envelope fades
-    const revealTimer = window.setTimeout(onReveal, 2600)
-    // Remove intro overlay entirely
-    const completeTimer = window.setTimeout(onComplete, 3800)
+    // Reveal quickly for reduced-motion users; otherwise keep the full envelope sequence.
+    const revealTimer = window.setTimeout(onReveal, shouldReduceMotion ? 80 : 2600)
+    const completeTimer = window.setTimeout(onComplete, shouldReduceMotion ? 180 : 3800)
 
     return () => {
       window.clearTimeout(revealTimer)
       window.clearTimeout(completeTimer)
     }
-  }, [isOpening, onComplete, onReveal])
+  }, [isOpening, onComplete, onReveal, shouldReduceMotion])
 
   const state = isOpening ? 'opening' : 'resting'
+  const animatedState = shouldReduceMotion ? 'resting' : state
+  const openInvitation = () => {
+    if (!isOpening) setIsOpening(true)
+  }
 
   return (
     <motion.div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex min-h-svh flex-col items-center justify-center overflow-hidden bg-[#F5EBDD] px-5 text-center"
+      className="fixed inset-0 z-50 flex min-h-svh flex-col items-center justify-center overflow-x-hidden overflow-y-auto bg-[#F5EBDD] px-5 py-6 text-center"
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.7, ease }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.7, ease }}
     >
       {/* Parchment background glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(253,248,240,0.96),transparent_35%),radial-gradient(circle_at_86%_78%,rgba(213,184,146,0.24),transparent_42%)]" />
@@ -131,7 +135,7 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       <motion.div
         className="relative z-10 mb-4"
         variants={headerVariants}
-        animate={state}
+        animate={animatedState}
         initial="resting"
       >
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]">
@@ -146,12 +150,12 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       </motion.div>
 
       {/* ─── Envelope + Paper scene ─── */}
-      <div className="relative z-10 h-[300px] w-[min(92vw,420px)] [perspective:1600px] sm:h-[320px]">
+      <div className="relative z-10 h-[270px] w-[min(92vw,420px)] [perspective:1600px] sm:h-[320px]">
         {/* Envelope body */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 h-[210px] sm:h-[220px]"
+          className="absolute inset-x-0 bottom-0 h-[190px] sm:h-[220px]"
           variants={envelopeVariants}
-          animate={state}
+          animate={animatedState}
           initial="resting"
         >
           {/* Envelope background */}
@@ -159,10 +163,10 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
 
           {/* Top flap (opens in 3D) */}
           <motion.div
-            className="absolute inset-x-0 top-0 z-30 h-[130px] origin-top [clip-path:polygon(0_0,100%_0,50%_100%)] [backface-visibility:hidden]"
+            className="absolute inset-x-0 top-0 z-30 h-[116px] origin-top [clip-path:polygon(0_0,100%_0,50%_100%)] [backface-visibility:hidden] sm:h-[130px]"
             style={{ transformStyle: 'preserve-3d' }}
             variants={flapVariants}
-            animate={state}
+            animate={animatedState}
             initial="resting"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-[#C9A77E] to-[#C4A070]" />
@@ -182,7 +186,7 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
         <motion.div
           className="absolute inset-x-0 bottom-0 z-10 flex justify-center"
           variants={paperVariants}
-          animate={state}
+          animate={animatedState}
           initial="resting"
         >
           <FirstInvitationCard className="w-[min(82vw,21rem)] shrink-0" compact />
@@ -192,13 +196,13 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
         <motion.div
           className="absolute inset-x-0 bottom-12 z-40 flex justify-center"
           variants={sealVariants}
-          animate={state}
+          animate={animatedState}
           initial="resting"
         >
           <button
             className="flex h-[4.2rem] w-[4.2rem] items-center justify-center rounded-full border-[3px] border-double border-[#D5B892] bg-[#8E574B] text-[#F5EBDD] shadow-[0_8px_20px_rgba(122,67,58,0.35),inset_0_2px_4px_rgba(255,255,255,0.15)] transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F]"
             type="button"
-            onClick={() => setIsOpening(true)}
+            onClick={openInvitation}
             disabled={isOpening}
             aria-label="Open invitation"
           >
@@ -211,7 +215,7 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       <motion.div
         className="relative z-10 mt-6 w-full max-w-sm sm:max-w-md"
         variants={countdownVariants}
-        animate={state}
+        animate={animatedState}
         initial="resting"
       >
         <ParchmentDivider className="mb-4" />
@@ -222,10 +226,10 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       <motion.button
         className="relative z-10 mt-6 rounded-full border border-[#B8862F]/55 bg-[#FDF8F0]/80 px-7 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#7A5A3A] shadow-[0_8px_22px_rgba(122,90,58,0.1)] backdrop-blur-sm transition-colors hover:bg-[#FDF8F0] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] disabled:cursor-wait"
         type="button"
-        onClick={() => setIsOpening(true)}
+        onClick={openInvitation}
         disabled={isOpening}
-        animate={isOpening ? { opacity: 0, y: 16 } : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease }}
+        animate={isOpening && !shouldReduceMotion ? { opacity: 0, y: 16 } : { opacity: 1, y: 0 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, ease }}
       >
         {isOpening ? 'Opening...' : 'Open Invitation'}
       </motion.button>

@@ -65,12 +65,6 @@ export const invitationData = {
     '/images/981e4a22-6810-4fc2-bb46-0caee2dd84f2.jpg',
     '/images/a2f9a558-161e-4a33-b6a2-8a717bd3a2c3.jpg',
   ],
-  dressCode: {
-    title: 'Garden Formal',
-    note: 'We would love to see you in muted, romantic hues. Please reserve white and ivory for the bride.',
-    exclusions: 'Kindly avoid white, ivory, and overly casual attire.',
-    colors: ['#C9B7A3', '#D8C6C1', '#A7B1A0', '#B7A9B8', '#8D9A84'],
-  },
   motif: {
     title: 'Wedding Motif',
     message:

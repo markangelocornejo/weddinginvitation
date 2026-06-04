@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
@@ -15,6 +15,24 @@ const photoStyles = [
 
 export function GallerySection() {
   const [selected, setSelected] = useState<string | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!selected) return
+
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelected(null)
+    }
+
+    closeButtonRef.current?.focus()
+    window.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape)
+      previousFocus?.focus()
+    }
+  }, [selected])
 
   return (
     <section className="relative overflow-hidden px-4 py-24 text-center sm:px-7 sm:py-28">
@@ -85,6 +103,7 @@ export function GallerySection() {
             aria-label="Gallery image preview"
           >
             <button
+              ref={closeButtonRef}
               className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               type="button"
               onClick={() => setSelected(null)}
