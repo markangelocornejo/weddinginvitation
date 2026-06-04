@@ -3,9 +3,18 @@ import { FloralArtwork } from './BohoDecorations'
 
 type FirstInvitationCardProps = {
   className?: string
+  /** compact = true for envelope paper preview (smaller text, tighter spacing) */
   compact?: boolean
 }
 
+/**
+ * Shared invitation card used both:
+ * 1. Inside the envelope (rising paper during reveal animation)
+ * 2. As the first section of the main invitation page
+ *
+ * This ensures visual continuity — what rises from the envelope
+ * is identical to what the viewer sees as the first real section.
+ */
 export function FirstInvitationCard({ className = '', compact = false }: FirstInvitationCardProps) {
   const { couple, displayDate, saveTheDate } = invitationData
 
@@ -13,34 +22,44 @@ export function FirstInvitationCard({ className = '', compact = false }: FirstIn
     <div
       className={`gold-speckles relative mx-auto flex ${compact ? 'aspect-[0.72]' : 'aspect-[0.62]'} w-full max-w-[24rem] flex-col items-center justify-center overflow-hidden rounded-t-[10rem] rounded-b-[1.5rem] border border-[#B8862F]/60 bg-[#FDF8F0] px-7 text-center shadow-[0_22px_52px_rgba(122,90,58,0.17)] ${className}`}
     >
+      {/* Inner border frame */}
       <div className="pointer-events-none absolute inset-[0.46rem] rounded-t-[9.7rem] rounded-b-[1.2rem] border border-[#D5B892]/55" />
+
+      {/* Floral decorations */}
       <FloralArtwork className="absolute -bottom-11 -left-11 h-52 w-40 opacity-82" />
       <FloralArtwork className="absolute -right-11 -top-12 h-48 w-36 rotate-180 opacity-62" />
 
+      {/* Card content */}
       <div className="relative z-10 flex flex-col items-center">
+        {/* Eyebrow */}
         <p className={`${compact ? 'text-[0.52rem]' : 'text-[0.68rem]'} font-semibold uppercase tracking-[0.2em] text-[#7A5A3A]`}>
           {saveTheDate.subtitle}
         </p>
 
+        {/* Save the Date heading */}
         <p className={`${compact ? 'mt-3 text-[3.2rem]' : 'mt-4 text-[4.15rem] sm:text-[5rem]'} font-script font-normal leading-[0.9] text-[#B8862F]`}>
           {saveTheDate.title}
         </p>
 
-        <div className={`${compact ? 'mt-5' : 'mt-5'} gold-divider`}><span /></div>
+        {/* Divider */}
+        <div className={`${compact ? 'mt-4' : 'mt-5'} gold-divider`}><span /></div>
 
-        <h2 className={`${compact ? 'mt-5 text-[2rem]' : 'mt-6 text-[2.65rem] sm:text-[3.25rem]'} font-serif font-medium leading-[0.95] text-[#3B2A1A]`}>
+        {/* Couple names */}
+        <h2 className={`${compact ? 'mt-4 text-[2rem]' : 'mt-6 text-[2.65rem] sm:text-[3.25rem]'} font-serif font-medium leading-[0.95] text-[#3B2A1A]`}>
           {couple.groom}
-          <span className={`${compact ? 'py-1 text-[1.9rem]' : 'py-1 text-[2.35rem]'} block font-script font-normal text-[#C08A5A]`}>
+          <span className={`${compact ? 'py-0.5 text-[1.8rem]' : 'py-1 text-[2.35rem]'} block font-script font-normal text-[#C08A5A]`}>
             &amp;
           </span>
           {couple.bride}
         </h2>
 
-        <p className={`${compact ? 'mt-4 text-[1.15rem]' : 'mt-4 text-[1.45rem]'} max-w-[15rem] font-script leading-[1.1] text-[#C08A5A]`}>
+        {/* Tagline */}
+        <p className={`${compact ? 'mt-3 text-[1.05rem]' : 'mt-4 text-[1.45rem]'} max-w-[15rem] font-script leading-[1.1] text-[#C08A5A]`}>
           {saveTheDate.tagline}
         </p>
 
-        <p className={`${compact ? 'mt-4 text-[0.54rem]' : 'mt-4 text-[0.72rem]'} font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]`}>
+        {/* Date */}
+        <p className={`${compact ? 'mt-3 text-[0.5rem]' : 'mt-4 text-[0.72rem]'} font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]`}>
           {displayDate}
         </p>
       </div>

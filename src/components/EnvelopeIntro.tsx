@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { Heart } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
-import { FloralArtwork } from './BohoDecorations'
+import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
+import { CountdownSection } from './CountdownSection'
+import { MusicToggle } from './MusicToggle'
 import { FirstInvitationCard } from './FirstInvitationCard'
 
 type EnvelopeIntroProps = {
@@ -10,41 +12,90 @@ type EnvelopeIntroProps = {
   onComplete: () => void
 }
 
-const cinematicEase = [0.22, 1, 0.36, 1] as const
+const ease = [0.22, 1, 0.36, 1] as const
 
-const paperVariants: Variants = {
-  resting: { opacity: 0.82, scale: 0.46, y: 96 },
+/* ─── Wax seal fades + scales down ─── */
+const sealVariants: Variants = {
+  resting: { opacity: 1, scale: 1 },
   opening: {
-    opacity: [0.82, 1, 1, 1, 0],
-    scale: [0.46, 0.58, 0.86, 1.02, 1.02],
-    y: [96, 18, -132, -226, -226],
+    opacity: 0,
+    scale: 0.5,
+    transition: { duration: 0.5, ease },
+  },
+}
+
+/* ─── Top flap opens smoothly (rotates backward in 3D) ─── */
+const flapVariants: Variants = {
+  resting: { rotateX: 0 },
+  opening: {
+    rotateX: -180,
+    transition: { delay: 0.35, duration: 1.0, ease },
+  },
+}
+
+/* ─── Invitation paper rises from inside the envelope ─── */
+const paperVariants: Variants = {
+  resting: { y: 80, scale: 0.52, opacity: 0.85 },
+  opening: {
+    y: [80, 40, -160, -280],
+    scale: [0.52, 0.62, 0.92, 1.0],
+    opacity: [0.85, 1, 1, 1],
     transition: {
-      delay: 0.78,
-      duration: 2.72,
-      ease: cinematicEase,
-      times: [0, 0.25, 0.62, 0.86, 1],
+      delay: 1.0,
+      duration: 2.2,
+      ease,
+      times: [0, 0.2, 0.65, 1],
     },
   },
 }
 
+/* ─── Envelope fades AFTER the paper has risen (delayed) ─── */
 const envelopeVariants: Variants = {
   resting: { opacity: 1, scale: 1, y: 0 },
   opening: {
     opacity: [1, 1, 0],
-    scale: [1, 0.98, 0.95],
-    y: [0, 12, 34],
-    transition: { delay: 2.08, duration: 0.9, ease: 'easeInOut', times: [0, 0.24, 1] },
+    scale: [1, 0.97, 0.93],
+    y: [0, 8, 30],
+    transition: {
+      delay: 2.4,
+      duration: 0.85,
+      ease: 'easeInOut',
+      times: [0, 0.3, 1],
+    },
+  },
+}
+
+/* ─── Top text fades out ─── */
+const headerVariants: Variants = {
+  resting: { opacity: 1, y: 0 },
+  opening: {
+    opacity: 0,
+    y: -18,
+    transition: { duration: 0.45, ease },
+  },
+}
+
+/* ─── Countdown fades out during reveal ─── */
+const countdownVariants: Variants = {
+  resting: { opacity: 1, y: 0 },
+  opening: {
+    opacity: 0,
+    y: 18,
+    transition: { delay: 2.0, duration: 0.6, ease },
   },
 }
 
 export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
   const [isOpening, setIsOpening] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isOpening) return
 
-    const revealTimer = window.setTimeout(onReveal, 2180)
-    const completeTimer = window.setTimeout(onComplete, 3820)
+    // Reveal main content (start sliding in) while envelope fades
+    const revealTimer = window.setTimeout(onReveal, 2600)
+    // Remove intro overlay entirely
+    const completeTimer = window.setTimeout(onComplete, 3800)
 
     return () => {
       window.clearTimeout(revealTimer)
@@ -52,85 +103,129 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
     }
   }, [isOpening, onComplete, onReveal])
 
-  const animationState = isOpening ? 'opening' : 'resting'
+  const state = isOpening ? 'opening' : 'resting'
 
   return (
     <motion.div
+      ref={containerRef}
       className="fixed inset-0 z-50 flex min-h-svh flex-col items-center justify-center overflow-hidden bg-[#F5EBDD] px-5 text-center"
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: cinematicEase }}
+      transition={{ duration: 0.7, ease }}
     >
+      {/* Parchment background glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(253,248,240,0.96),transparent_35%),radial-gradient(circle_at_86%_78%,rgba(213,184,146,0.24),transparent_42%)]" />
       <div className="gold-speckles pointer-events-none absolute inset-0 opacity-70" />
-      <FloralArtwork className="absolute -bottom-16 -left-16 h-72 w-56 opacity-75" />
-      <FloralArtwork className="absolute -right-16 -top-16 h-64 w-52 rotate-180 opacity-62" />
 
+      {/* Floral clusters — illustrated corners */}
+      <FloralArtwork className="absolute -bottom-16 -left-16 h-72 w-56 opacity-80 lg:h-96 lg:w-72" />
+      <FloralArtwork className="absolute -right-16 -top-16 h-64 w-52 rotate-180 opacity-65 lg:h-80 lg:w-64" />
+      <FloralArtwork className="absolute -left-8 top-[28%] h-36 w-28 -rotate-12 opacity-40 lg:h-48 lg:w-36" />
+      <FloralArtwork className="absolute -right-8 bottom-[22%] h-40 w-32 rotate-[168deg] opacity-38 lg:h-52 lg:w-40" />
+
+      {/* Vinyl/Music control — positioned top-right */}
+      <div className="absolute right-4 top-4 z-40 sm:right-6 sm:top-6">
+        <MusicToggle />
+      </div>
+
+      {/* Header text — fades when opening */}
       <motion.div
-        className="relative z-10"
-        animate={isOpening ? { opacity: 0, y: -22 } : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.52, ease: cinematicEase }}
+        className="relative z-10 mb-4"
+        variants={headerVariants}
+        animate={state}
+        initial="resting"
       >
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]">
           A special invitation for you
         </p>
-        <p className="mt-3 font-script text-[2.8rem] leading-none text-[#B8862F]">
+        <p className="mt-2 font-script text-[2.6rem] leading-none text-[#B8862F] sm:text-[3rem]">
           You are warmly invited
         </p>
-        <p className="mt-4 text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#7A5A3A]">
-          {invitationData.couple.displayNames}
+        <p className="mt-3 text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[#7A5A3A]">
+          {invitationData.couple.displayNames} &middot; {invitationData.displayDate}
         </p>
       </motion.div>
 
-      <div className="relative z-10 mt-8 h-[286px] w-[min(92vw,400px)] [perspective:1600px]">
+      {/* ─── Envelope + Paper scene ─── */}
+      <div className="relative z-10 h-[300px] w-[min(92vw,420px)] [perspective:1600px] sm:h-[320px]">
+        {/* Envelope body */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 h-[205px]"
+          className="absolute inset-x-0 bottom-0 h-[210px] sm:h-[220px]"
           variants={envelopeVariants}
-          animate={animationState}
+          animate={state}
           initial="resting"
         >
-          <div className="absolute inset-0 rounded-sm bg-[#D5B892] shadow-[0_26px_56px_rgba(122,90,58,0.24)]" />
+          {/* Envelope background */}
+          <div className="absolute inset-0 rounded-sm bg-gradient-to-b from-[#DEBB8E] to-[#D5B892] shadow-[0_26px_56px_rgba(122,90,58,0.28)]" />
+
+          {/* Top flap (opens in 3D) */}
           <motion.div
-            className="absolute inset-x-0 top-0 z-30 h-[126px] origin-top bg-[#C9A77E] [clip-path:polygon(0_0,100%_0,50%_100%)]"
-            animate={isOpening ? { rotateX: -180 } : { rotateX: 0 }}
-            transition={{ delay: 0.28, duration: 1.16, ease: cinematicEase }}
-          />
+            className="absolute inset-x-0 top-0 z-30 h-[130px] origin-top [clip-path:polygon(0_0,100%_0,50%_100%)] [backface-visibility:hidden]"
+            style={{ transformStyle: 'preserve-3d' }}
+            variants={flapVariants}
+            animate={state}
+            initial="resting"
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-[#C9A77E] to-[#C4A070]" />
+            {/* Back face of flap */}
+            <div className="absolute inset-0 bg-[#E9D6BA] [backface-visibility:hidden] [transform:rotateX(180deg)]" />
+          </motion.div>
+
+          {/* Rear panels */}
           <div className="absolute inset-0 z-20 bg-[#E1C7A5] [clip-path:polygon(0_0,50%_58%,100%_0,100%_100%,0_100%)]" />
           <div className="absolute inset-0 z-20 bg-[#E9D6BA] [clip-path:polygon(0_0,50%_58%,0_100%)]" />
+
+          {/* Inner shadow for depth */}
+          <div className="absolute inset-x-4 top-8 z-[5] h-[60%] rounded-sm bg-[#C4A070]/30 blur-sm" />
         </motion.div>
 
+        {/* Rising paper (uses FirstInvitationCard to match first section) */}
         <motion.div
           className="absolute inset-x-0 bottom-0 z-10 flex justify-center"
           variants={paperVariants}
-          animate={animationState}
+          animate={state}
           initial="resting"
         >
-          <FirstInvitationCard className="w-[min(84vw,22rem)] shrink-0" />
+          <FirstInvitationCard className="w-[min(82vw,21rem)] shrink-0" compact />
         </motion.div>
 
+        {/* Wax seal (button to open) — fades/scales down */}
         <motion.div
-          className="absolute inset-x-0 bottom-10 z-40 flex justify-center"
-          animate={isOpening ? { opacity: 0, scale: 0.68 } : { opacity: 1, scale: 1 }}
-          transition={{ duration: 0.38, ease: cinematicEase }}
+          className="absolute inset-x-0 bottom-12 z-40 flex justify-center"
+          variants={sealVariants}
+          animate={state}
+          initial="resting"
         >
           <button
-            className="flex h-16 w-16 items-center justify-center rounded-full border-[3px] border-double border-[#D5B892] bg-[#8E574B] text-[#F5EBDD] shadow-[0_7px_16px_rgba(122,67,58,0.3)] transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F]"
+            className="flex h-[4.2rem] w-[4.2rem] items-center justify-center rounded-full border-[3px] border-double border-[#D5B892] bg-[#8E574B] text-[#F5EBDD] shadow-[0_8px_20px_rgba(122,67,58,0.35),inset_0_2px_4px_rgba(255,255,255,0.15)] transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F]"
             type="button"
             onClick={() => setIsOpening(true)}
             disabled={isOpening}
             aria-label="Open invitation"
           >
-            <Heart size={23} strokeWidth={1.25} />
+            <Heart size={22} strokeWidth={1.25} />
           </button>
         </motion.div>
       </div>
 
+      {/* Countdown (below envelope) — adds to the illustrated scene feel */}
+      <motion.div
+        className="relative z-10 mt-6 w-full max-w-sm sm:max-w-md"
+        variants={countdownVariants}
+        animate={state}
+        initial="resting"
+      >
+        <ParchmentDivider className="mb-4" />
+        <CountdownSection embedded />
+      </motion.div>
+
+      {/* Open button — secondary CTA */}
       <motion.button
-        className="relative z-10 mt-8 rounded-full border border-[#B8862F]/55 bg-[#FDF8F0]/80 px-7 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#7A5A3A] shadow-[0_8px_22px_rgba(122,90,58,0.1)] backdrop-blur-sm transition-colors hover:bg-[#FDF8F0] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] disabled:cursor-wait"
+        className="relative z-10 mt-6 rounded-full border border-[#B8862F]/55 bg-[#FDF8F0]/80 px-7 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#7A5A3A] shadow-[0_8px_22px_rgba(122,90,58,0.1)] backdrop-blur-sm transition-colors hover:bg-[#FDF8F0] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] disabled:cursor-wait"
         type="button"
         onClick={() => setIsOpening(true)}
         disabled={isOpening}
         animate={isOpening ? { opacity: 0, y: 16 } : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.44, ease: cinematicEase }}
+        transition={{ duration: 0.4, ease }}
       >
         {isOpening ? 'Opening...' : 'Open Invitation'}
       </motion.button>
