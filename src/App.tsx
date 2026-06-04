@@ -9,6 +9,7 @@ import { GiftSection } from './components/GiftSection'
 import { HeroSection } from './components/HeroSection'
 import { InvitationMessage } from './components/InvitationMessage'
 import { MusicToggle } from './components/MusicToggle'
+import { SpiritualSection } from './components/SpiritualSection'
 import { RSVPPromptSection } from './components/RSVPPromptSection'
 import { RSVPSection } from './components/RSVPSection'
 import { SaveTheDateSection } from './components/SaveTheDateSection'
@@ -59,6 +60,7 @@ function App() {
       >
         <SaveTheDateSection />
         <HeroSection />
+        <SpiritualSection />
         <InvitationMessage />
         <RSVPPromptSection />
         <EventDetails />
