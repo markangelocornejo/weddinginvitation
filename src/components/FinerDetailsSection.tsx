@@ -5,7 +5,7 @@ import { invitationData } from '../data/invitationData'
 const ease = [0.22, 1, 0.36, 1] as const
 
 export function FinerDetailsSection() {
-  const { motif, unpluggedCeremony } = invitationData
+  const { motif } = invitationData
 
   return (
     <section className="relative overflow-hidden px-5 py-28 text-center sm:px-7 sm:py-32">
@@ -77,19 +77,10 @@ export function FinerDetailsSection() {
         </div>
 
         {/* Exclusions note */}
-        <p className="mx-auto mt-7 max-w-xs text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-[#B8862F] lg:max-w-md lg:text-[0.82rem]">
+        <p className="mx-auto mt-7 block w-full max-w-xs text-center text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-[#B8862F] lg:max-w-md lg:text-[0.82rem]">
           {motif.attireNote}
         </p>
 
-        <ParchmentDivider className="mt-10" />
-
-        {/* Unplugged Ceremony — unchanged */}
-        <h3 className="mt-10 font-script text-[3rem] font-normal leading-[1.05] text-[#C08A5A]">
-          {unpluggedCeremony.title}
-        </h3>
-        <p className="mx-auto mt-3 max-w-sm font-serif text-[1rem] leading-7 text-[#7A5A3A] lg:max-w-lg lg:text-[1.15rem] lg:leading-8">
-          {unpluggedCeremony.message}
-        </p>
       </motion.div>
     </section>
   )

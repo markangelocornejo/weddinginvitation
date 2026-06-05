@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Music2, Pause, VolumeX } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
 
@@ -11,6 +11,25 @@ export function MusicToggle() {
     if (audioRef.current) audioRef.current.volume = 0.45
   }, [])
 
+  const playMusic = useCallback(async () => {
+    if (!audioRef.current || isUnavailable) return
+
+    try {
+      await audioRef.current.play()
+    } catch {
+      setIsPlaying(false)
+    }
+  }, [isUnavailable])
+
+  useEffect(() => {
+    const playAfterInvitationOpen = () => {
+      void playMusic()
+    }
+
+    window.addEventListener('wedding-invitation:opened', playAfterInvitationOpen)
+    return () => window.removeEventListener('wedding-invitation:opened', playAfterInvitationOpen)
+  }, [playMusic])
+
   const toggleMusic = async () => {
     if (!audioRef.current || isUnavailable) return
 
@@ -19,11 +38,7 @@ export function MusicToggle() {
       return
     }
 
-    try {
-      await audioRef.current.play()
-    } catch {
-      setIsPlaying(false)
-    }
+    await playMusic()
   }
 
   return (

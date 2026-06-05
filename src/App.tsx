@@ -44,12 +44,13 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* Persistent music toggle (stays after intro closes) */}
-      {!isIntroVisible && (
-        <div className="fixed bottom-4 right-4 z-30 sm:bottom-6 sm:right-6">
-          <MusicToggle />
-        </div>
-      )}
+      {/* Persistent music toggle (audio is mounted early so opening the invite can start playback) */}
+      <div
+        className={`fixed bottom-4 right-4 z-30 transition-opacity sm:bottom-6 sm:right-6 ${isIntroVisible ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+        aria-hidden={isIntroVisible}
+      >
+        <MusicToggle />
+      </div>
 
       {/* Main invitation content — slides upward seamlessly */}
       <motion.main

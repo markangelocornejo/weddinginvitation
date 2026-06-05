@@ -23,6 +23,7 @@
   --soft-brown: #7A5A3A;
   --deep-brown: #3B2A1A;
   font-family: "DM Sans", sans-serif;
+  font-weight: 500;
   color: var(--deep-brown);
   background: var(--ivory);
   font-synthesis: none;
@@ -75,7 +76,7 @@ body {
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 h1,h2,h3,p { margin: 0; }
-h1,h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; }
+h1,h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; }
 h2 { color: #765c51; font-size: clamp(2.3rem, 10vw, 3.5rem); line-height: .95; }
 .eyebrow { color: #a4796a; font-size: .64rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
 .eyebrow.light { color: #f7e9dd; }
@@ -213,7 +214,13 @@ h2 { color: #765c51; font-size: clamp(2.3rem, 10vw, 3.5rem); line-height: .95; }
 .paper-section h2 { margin-top: 1rem; }
 .paper-section h2 span { font-style: italic; }
 .script-note { color: #b08070; font-family: "Cormorant Garamond"; font-size: 1.35rem; font-style: italic; margin-top: 1.4rem; }
-h3 { color: #765c51; font-family: "Cormorant Garamond"; font-size: 1.5rem; font-weight: 600; }
+h3 { color: #765c51; font-family: "Cormorant Garamond"; font-size: 1.5rem; font-weight: 700; }
+.font-serif { font-weight: 600; }
+.font-sans { font-weight: 500; }
+.font-script {
+  font-weight: 500;
+  text-shadow: 0 0 0 currentColor;
+}
 .timeline-section { background: transparent; }
 .timeline { margin: 2.2rem auto 0; max-width: 460px; text-align: left; }
 .timeline-item { display: grid; gap: 1rem; grid-template-columns: 62px 14px 1fr; min-height: 100px; position: relative; }

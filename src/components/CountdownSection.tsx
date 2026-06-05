@@ -37,24 +37,24 @@ export function CountdownSection({ embedded = false }: CountdownSectionProps) {
 
   const content = (
     <div className={embedded ? 'relative mx-auto w-full max-w-md' : 'relative mx-auto max-w-xl'}>
-      <p className="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]">
+      <p className={`${embedded ? 'text-[0.56rem]' : 'text-[0.64rem]'} font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]`}>
         {timeLeft.hasArrived ? 'Thank you for celebrating with us' : 'Counting down to forever'}
       </p>
-      <h2 className="mt-2 font-script text-[2.7rem] font-normal leading-none text-[#B8862F] sm:text-[3.2rem]">
+      <h2 className={`${embedded ? 'mt-1.5 text-[2.25rem] sm:text-[2.65rem]' : 'mt-2 text-[2.7rem] sm:text-[3.2rem]'} font-script font-normal leading-none text-[#B8862F]`}>
         {timeLeft.hasArrived ? 'We Said I Do' : 'Until We Say I Do'}
       </h2>
 
-      <ParchmentDivider className="mt-4" />
-      <div className="mx-auto mt-5 grid grid-cols-4">
+      <ParchmentDivider className={embedded ? 'mt-3' : 'mt-4'} />
+      <div className={`${embedded ? 'mt-3' : 'mt-5'} mx-auto grid grid-cols-4`}>
         {Object.entries(timeUnits).map(([label, value]) => (
           <div
-            className="relative px-1 py-2 after:absolute after:right-0 after:top-1/2 after:h-10 after:w-px after:-translate-y-1/2 after:bg-[#D5B892]/55 last:after:hidden"
+            className={`${embedded ? 'py-1 after:h-8' : 'py-2 after:h-10'} relative px-1 after:absolute after:right-0 after:top-1/2 after:w-px after:-translate-y-1/2 after:bg-[#D5B892]/55 last:after:hidden`}
             key={label}
           >
-            <strong className="block font-serif text-[2.35rem] font-medium leading-none tracking-[-0.08em] text-[#3B2A1A] sm:text-[3rem]">
+            <strong className={`${embedded ? 'text-[1.85rem] sm:text-[2.35rem]' : 'text-[2.35rem] sm:text-[3rem]'} block font-serif font-medium leading-none tracking-[-0.08em] text-[#3B2A1A]`}>
               {String(value).padStart(2, '0')}
             </strong>
-            <span className="mt-2 block text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-[#7A5A3A]">
+            <span className={`${embedded ? 'mt-1 text-[0.55rem]' : 'mt-2 text-[0.64rem]'} block font-semibold uppercase tracking-[0.08em] text-[#7A5A3A]`}>
               {label}
             </span>
           </div>

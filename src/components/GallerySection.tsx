@@ -38,6 +38,7 @@ export function GallerySection() {
     <section className="relative overflow-hidden px-4 py-24 text-center sm:px-7 sm:py-28">
       <FloralArtwork className="absolute -bottom-12 -left-16 h-60 w-48 opacity-38" />
       <motion.div
+        className="mx-auto w-full max-w-3xl text-center"
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
@@ -50,13 +51,13 @@ export function GallerySection() {
           Captured Moments
         </h2>
         <ParchmentDivider className="mt-6" />
-        <p className="mx-auto mt-6 max-w-md font-serif text-[1.05rem] leading-7 text-[#7A5A3A] lg:max-w-2xl lg:text-[1.22rem] lg:leading-8">
+        <p className="mx-auto mt-6 max-w-md text-center font-serif text-[1.05rem] leading-7 text-[#7A5A3A] lg:max-w-xl lg:text-[1.22rem] lg:leading-8">
           A few memories from our story, with many more still waiting to be made.
         </p>
       </motion.div>
 
       <motion.div
-        className="relative mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-3 gap-y-7 px-2 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-9 lg:max-w-5xl lg:grid-cols-4 lg:gap-x-7"
+        className="relative mx-auto mt-10 grid max-w-3xl grid-cols-2 justify-items-center gap-x-3 gap-y-7 px-2 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-9 lg:max-w-4xl lg:grid-cols-3 lg:gap-x-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.12 }}
@@ -64,7 +65,7 @@ export function GallerySection() {
       >
         {invitationData.gallery.map((image, index) => (
           <motion.button
-            className={`group relative bg-[#FDF8F0] p-2 pb-7 shadow-[0_12px_22px_rgba(122,90,58,0.16)] ${photoStyles[index % photoStyles.length]}`}
+            className={`group relative w-full max-w-[14rem] bg-[#FDF8F0] p-2 pb-7 shadow-[0_12px_22px_rgba(122,90,58,0.16)] sm:max-w-[15rem] lg:max-w-[16rem] ${photoStyles[index % photoStyles.length]}`}
             type="button"
             onClick={() => setSelected(image)}
             key={image}
@@ -78,14 +79,11 @@ export function GallerySection() {
           >
             <span className="absolute left-1/2 top-0 h-4 w-14 -translate-x-1/2 -translate-y-1/2 rotate-[-3deg] bg-[#D5B892]/45" />
             <img
-              className="h-52 w-full object-cover grayscale-[10%] transition-transform duration-700 group-hover:scale-[1.03] sm:h-60 lg:h-72"
+              className="aspect-[4/5] w-full object-cover grayscale-[10%] transition-transform duration-700 group-hover:scale-[1.03]"
               src={image}
               alt={`${invitationData.couple.displayNames} gallery moment ${index + 1}`}
               loading="lazy"
             />
-            <span className="absolute inset-x-0 bottom-2 font-script text-[1.45rem] text-[#C08A5A]">
-              memory {index + 1}
-            </span>
           </motion.button>
         ))}
       </motion.div>

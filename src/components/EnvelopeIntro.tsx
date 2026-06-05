@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { Heart } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
-import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
-import { CountdownSection } from './CountdownSection'
-import { MusicToggle } from './MusicToggle'
+import { FloralArtwork } from './BohoDecorations'
 import { FirstInvitationCard } from './FirstInvitationCard'
 
 type EnvelopeIntroProps = {
@@ -75,16 +72,6 @@ const headerVariants: Variants = {
   },
 }
 
-/* ─── Countdown fades out during reveal ─── */
-const countdownVariants: Variants = {
-  resting: { opacity: 1, y: 0 },
-  opening: {
-    opacity: 0,
-    y: 18,
-    transition: { delay: 2.0, duration: 0.6, ease },
-  },
-}
-
 export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
   const [isOpening, setIsOpening] = useState(false)
   const shouldReduceMotion = useReducedMotion()
@@ -106,13 +93,16 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
   const state = isOpening ? 'opening' : 'resting'
   const animatedState = shouldReduceMotion ? 'resting' : state
   const openInvitation = () => {
-    if (!isOpening) setIsOpening(true)
+    if (isOpening) return
+
+    window.dispatchEvent(new Event('wedding-invitation:opened'))
+    setIsOpening(true)
   }
 
   return (
     <motion.div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex min-h-svh flex-col items-center justify-center overflow-x-hidden overflow-y-auto bg-[#F5EBDD] px-5 py-6 text-center"
+      className="fixed inset-0 z-50 flex h-svh flex-col items-center justify-center overflow-hidden bg-[#F5EBDD] px-5 py-5 text-center"
       exit={{ opacity: 0 }}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.7, ease }}
     >
@@ -126,14 +116,9 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       <FloralArtwork className="absolute -left-8 top-[28%] h-36 w-28 -rotate-12 opacity-40 lg:h-48 lg:w-36" />
       <FloralArtwork className="absolute -right-8 bottom-[22%] h-40 w-32 rotate-[168deg] opacity-38 lg:h-52 lg:w-40" />
 
-      {/* Vinyl/Music control — positioned top-right */}
-      <div className="absolute right-4 top-4 z-40 sm:right-6 sm:top-6">
-        <MusicToggle />
-      </div>
-
       {/* Header text — fades when opening */}
       <motion.div
-        className="relative z-10 mb-4"
+        className="relative z-10 mb-3"
         variants={headerVariants}
         animate={animatedState}
         initial="resting"
@@ -150,7 +135,7 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
       </motion.div>
 
       {/* ─── Envelope + Paper scene ─── */}
-      <div className="relative z-10 h-[270px] w-[min(92vw,420px)] [perspective:1600px] sm:h-[320px]">
+      <div className="relative z-10 h-[min(42svh,300px)] w-[min(92vw,420px)] [perspective:1600px] sm:h-[min(44svh,320px)]">
         {/* Envelope body */}
         <motion.div
           className="absolute inset-x-0 bottom-0 h-[190px] sm:h-[220px]"
@@ -200,31 +185,25 @@ export function EnvelopeIntro({ onReveal, onComplete }: EnvelopeIntroProps) {
           initial="resting"
         >
           <button
-            className="flex h-[4.2rem] w-[4.2rem] items-center justify-center rounded-full border-[3px] border-double border-[#D5B892] bg-[#8E574B] text-[#F5EBDD] shadow-[0_8px_20px_rgba(122,67,58,0.35),inset_0_2px_4px_rgba(255,255,255,0.15)] transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F]"
+            className="flex h-24 w-24 items-center justify-center rounded-full bg-transparent p-0 shadow-[0_10px_24px_rgba(122,67,58,0.28)] transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] sm:h-28 sm:w-28"
             type="button"
             onClick={openInvitation}
             disabled={isOpening}
             aria-label="Open invitation"
           >
-            <Heart size={22} strokeWidth={1.25} />
+            <img
+              className="h-full w-full object-contain"
+              src="/images/r-and-r-seal-brown-transparent.png"
+              alt=""
+              draggable="false"
+            />
           </button>
         </motion.div>
       </div>
 
-      {/* Countdown (below envelope) — adds to the illustrated scene feel */}
-      <motion.div
-        className="relative z-10 mt-6 w-full max-w-sm sm:max-w-md"
-        variants={countdownVariants}
-        animate={animatedState}
-        initial="resting"
-      >
-        <ParchmentDivider className="mb-4" />
-        <CountdownSection embedded />
-      </motion.div>
-
       {/* Open button — secondary CTA */}
       <motion.button
-        className="relative z-10 mt-6 rounded-full border border-[#B8862F]/55 bg-[#FDF8F0]/80 px-7 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#7A5A3A] shadow-[0_8px_22px_rgba(122,90,58,0.1)] backdrop-blur-sm transition-colors hover:bg-[#FDF8F0] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] disabled:cursor-wait"
+        className="relative z-10 mt-5 rounded-full border border-[#B8862F]/55 bg-[#FDF8F0]/80 px-7 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#7A5A3A] shadow-[0_8px_22px_rgba(122,90,58,0.1)] backdrop-blur-sm transition-colors hover:bg-[#FDF8F0] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8862F] disabled:cursor-wait"
         type="button"
         onClick={openInvitation}
         disabled={isOpening}
