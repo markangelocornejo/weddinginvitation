@@ -6,8 +6,8 @@ import { FirstInvitationCard } from './FirstInvitationCard'
 export function SaveTheDateSection() {
   return (
     <section className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 py-6 text-center sm:px-7 sm:py-8 lg:py-10">
-      <FloralArtwork className="absolute -left-16 bottom-0 h-60 w-48 opacity-72 lg:h-80 lg:w-60" />
-      <FloralArtwork className="absolute -right-16 top-0 h-52 w-40 rotate-180 opacity-56 lg:h-72 lg:w-56" />
+      <FloralArtwork className="absolute -left-16 bottom-0 h-60 w-48 opacity-72 lg:-left-8 lg:h-80 lg:w-60 xl:left-16" />
+      <FloralArtwork className="absolute -right-16 top-0 h-52 w-40 rotate-180 opacity-56 lg:-right-8 lg:h-72 lg:w-56 xl:right-16" />
       <div className="pointer-events-none absolute left-1/2 top-[60%] h-24 w-[86%] max-w-sm -translate-x-1/2 rounded-sm bg-[#D5B892]/45 shadow-[0_14px_28px_rgba(122,90,58,0.1)] [clip-path:polygon(0_0,50%_62%,100%_0,100%_100%,0_100%)] lg:h-28 lg:max-w-md" />
       <motion.div
         className="relative z-10 flex w-full flex-col items-center"

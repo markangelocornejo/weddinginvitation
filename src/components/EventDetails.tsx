@@ -1,10 +1,19 @@
 import { motion } from 'framer-motion'
+import { CalendarPlus, Download } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
 import { EventIllustration, FloralArtwork, ParchmentDivider } from './BohoDecorations'
+
+const calendarStart = '20260822T100000'
+const calendarEnd = '20260822T150000'
+const calendarTimeZone = 'Europe/Helsinki'
 
 export function EventDetails() {
   const { event } = invitationData
   const details = [event.ceremony, event.reception]
+  const calendarTitle = `${invitationData.couple.displayNames} Wedding`
+  const calendarLocation = `${event.ceremony.venue}, ${event.ceremony.address}`
+  const calendarDescription = `${event.ceremony.title} at ${event.ceremony.time} at ${event.ceremony.venue}. ${event.reception.title} follows at ${event.reception.time} at ${event.reception.venue}, ${event.reception.address}.`
+  const googleCalendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calendarTitle)}&dates=${calendarStart}/${calendarEnd}&ctz=${encodeURIComponent(calendarTimeZone)}&details=${encodeURIComponent(calendarDescription)}&location=${encodeURIComponent(calendarLocation)}`
 
   return (
     <section className="relative overflow-hidden px-5 py-24 text-center sm:px-7 sm:py-28">
@@ -55,6 +64,30 @@ export function EventDetails() {
               {index === 0 && <span className="mx-auto mt-8 block h-px w-24 bg-[#D5B892]/70 sm:hidden" />}
             </article>
           ))}
+        </div>
+
+        <div className="mx-auto mt-10 flex max-w-lg flex-col items-center justify-center gap-3 sm:flex-row">
+          <motion.a
+            className="invitation-button"
+            href={googleCalendarLink}
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <CalendarPlus size={15} strokeWidth={1.7} />
+            Add to Google Calendar
+          </motion.a>
+          <motion.a
+            className="invitation-button"
+            href="/ray-ruby-wedding.ics"
+            download
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Download size={15} strokeWidth={1.7} />
+            Download .ics
+          </motion.a>
         </div>
       </motion.div>
     </section>

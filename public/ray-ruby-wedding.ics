@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ray and Ruby//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ray-ruby-wedding-20260822@rubyray.vercel.app
+DTSTAMP:20260605T000000Z
+DTSTART:20260822T070000Z
+DTEND:20260822T120000Z
+SUMMARY:Ray & Ruby Wedding
+LOCATION:St Mary Catholic Parish\, Mäntytie 2\, 00270 Helsinki
+DESCRIPTION:Wedding Ceremony at 10:00 AM at St Mary Catholic Parish. Reception follows at 12:00 NN at Ravintola Sitrus\, Hankasuontie 8\, 00390 Helsinki.
+END:VEVENT
+END:VCALENDAR

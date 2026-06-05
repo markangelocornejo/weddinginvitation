@@ -46,11 +46,11 @@ export function RSVPSection() {
             </button>
           </div>
         ) : (
-          <form className="mx-auto mt-8 grid max-w-xl gap-5 text-left" onSubmit={submit}>
-            <label className="grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
+          <form className="mx-auto mt-8 grid max-w-xl gap-5 text-center" onSubmit={submit}>
+            <label className="grid gap-2 text-center text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
               Full name
               <input
-                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors placeholder:text-[#B9A68E] focus:border-[#B8862F]"
+                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-center text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors placeholder:text-[#B9A68E] focus:border-[#B8862F]"
                 required
                 name="name"
                 autoComplete="name"
@@ -58,10 +58,10 @@ export function RSVPSection() {
               />
             </label>
 
-            <label className="grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
+            <label className="grid gap-2 text-center text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
               Attendance
               <select
-                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors focus:border-[#B8862F]"
+                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-center text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors focus:border-[#B8862F]"
                 required
                 name="attendance"
                 defaultValue=""
@@ -73,10 +73,10 @@ export function RSVPSection() {
               </select>
             </label>
 
-            <label className="grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
+            <label className="grid gap-2 text-center text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
               Number of guests
               <input
-                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors focus:border-[#B8862F]"
+                className="min-h-11 border-0 border-b border-[#D5B892] bg-transparent px-1 py-3.5 text-center text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors focus:border-[#B8862F]"
                 required
                 name="guests"
                 type="number"
@@ -86,10 +86,10 @@ export function RSVPSection() {
               />
             </label>
 
-            <label className="grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
+            <label className="grid gap-2 text-center text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#765c51]">
               Message
               <textarea
-                className="resize-y border border-[#D5B892] bg-transparent px-3 py-3 text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors placeholder:text-[#B9A68E] focus:border-[#B8862F]"
+                className="resize-y border border-[#D5B892] bg-transparent px-3 py-3 text-center text-sm font-normal normal-case tracking-normal text-[#3B2A1A] outline-none transition-colors placeholder:text-[#B9A68E] focus:border-[#B8862F]"
                 name="message"
                 rows={4}
                 placeholder="Share a note with the couple"
@@ -97,7 +97,7 @@ export function RSVPSection() {
             </label>
 
             <button
-              className="invitation-button mt-2"
+              className="invitation-button mx-auto mt-2"
               type="submit"
             >
               <Send size={15} strokeWidth={1.6} />
