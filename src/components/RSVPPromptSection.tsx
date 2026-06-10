@@ -23,7 +23,7 @@ export function RSVPPromptSection() {
 
           <div className="relative mx-auto mt-7 h-44 max-w-xs lg:h-52 lg:max-w-sm">
             <img className="absolute left-4 top-3 h-36 w-28 -rotate-6 border-[6px] border-[#FDF8F0] object-cover shadow-[0_10px_18px_rgba(122,90,58,0.18)] lg:h-44 lg:w-36" src={gallery[0]} alt="" />
-            <img className="absolute right-4 top-3 h-36 w-28 rotate-6 border-[6px] border-[#FDF8F0] object-cover shadow-[0_10px_18px_rgba(122,90,58,0.18)] lg:h-44 lg:w-36" src={gallery[1]} alt="" />
+            <img className="absolute right-4 top-3 h-36 w-28 rotate-6 border-[6px] border-[#FDF8F0] object-cover shadow-[0_10px_18px_rgba(122,90,58,0.18)] lg:h-44 lg:w-36" src="/images/att.QddXWWcNIUsnCv_zMusF403TXu9ch0gHSAy1R76L3IQ.jpeg" alt="" />
             <img
               className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_6px_14px_rgba(122,67,58,0.26)] lg:h-24 lg:w-24"
               src="/images/r-and-r-seal-brown-transparent.png"
