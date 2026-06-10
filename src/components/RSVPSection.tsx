@@ -59,16 +59,20 @@ export function RSVPSection() {
 
         {submitted ? (
           <div
-            className="mt-8 border-y border-[#D5B892]/70 px-5 py-8"
+            className="mx-auto mt-9 flex max-w-md flex-col items-center border-y border-[#D5B892]/70 px-4 py-9 text-center lg:max-w-lg"
             role="status"
           >
-            <CheckCircle2 className="mx-auto text-[#879a7f]" size={34} strokeWidth={1.45} />
-            <h3 className="mt-4 text-[1.85rem] leading-none">Thank you for responding!</h3>
-            <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-[#817068]">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#879a7f]/70 bg-[#FDF8F0] text-[#879a7f] shadow-[0_7px_16px_rgba(122,90,58,0.1)]">
+              <CheckCircle2 size={25} strokeWidth={1.45} />
+            </span>
+            <h3 className="mt-5 font-serif text-[1.95rem] font-medium leading-[1.05] text-[#3B2A1A] lg:text-[2.25rem]">
+              Thank you for responding
+            </h3>
+            <p className="mx-auto mt-4 max-w-md font-serif text-[1rem] leading-7 text-[#7A5A3A] lg:text-[1.1rem] lg:leading-8">
               {rsvp.responseNote} We are grateful you took the time to reply.
             </p>
             <button
-              className="mt-5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-[#946c5d] underline decoration-[#caa596] underline-offset-4"
+              className="mt-7 text-center text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-[#946c5d] underline decoration-[#caa596] decoration-1 underline-offset-4"
               type="button"
               onClick={() => setSubmitted(false)}
             >
