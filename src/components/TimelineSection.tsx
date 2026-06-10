@@ -25,8 +25,8 @@ export function TimelineSection() {
         <h2 className="mt-3 font-script text-[4.1rem] font-normal leading-[0.96] text-[#B8862F] sm:text-[4.8rem] lg:text-[5.5rem]">Our Event Timeline</h2>
         <ParchmentDivider className="mt-6" />
 
-        <div className="relative mx-auto mt-10 grid max-w-md gap-10 text-center sm:max-w-2xl sm:grid-cols-2 sm:gap-3 lg:mt-14 lg:max-w-4xl">
-          <span className="absolute left-1/2 top-10 h-[calc(100%-5rem)] w-[2px] -translate-x-1/2 bg-[#C08A5A]/60 sm:left-[25%] sm:right-[25%] sm:top-6 sm:h-[2px] sm:w-1/2 sm:translate-x-0 lg:top-7" />
+        <div className="relative mx-auto mt-10 grid max-w-sm gap-9 text-center sm:max-w-2xl sm:grid-cols-2 sm:gap-3 lg:mt-14 lg:max-w-4xl">
+          <span className="absolute left-[25%] right-[25%] top-6 hidden h-[2px] w-1/2 bg-[#C08A5A]/55 sm:block lg:top-7" />
           {invitationData.timeline.map((item, index) => {
             const Icon = timelineIcons[item.icon as keyof typeof timelineIcons] ?? Heart
             return (
