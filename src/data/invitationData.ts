@@ -14,7 +14,7 @@ export const invitationData = {
   },
   heroImage:
     'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=88',
-  music: '/audio/Bruno%20Mars%20-%20Risk%20It%20All%20%5BOfficial%20Music%20Video%5D.mp3',
+  music: '/audio/Can%27t%20Help%20Falling%20In%20Love%20%28Instrumental%29%20Wedding%20March.mp3',
   musicFallbackLabel: 'Wedding song is unavailable. Please check the file in public/audio.',
   invitation: {
     eyebrow: '18 years in the making',
@@ -58,12 +58,16 @@ export const invitationData = {
     { time: '12:00 NN', title: 'Reception', detail: 'Ravintola Sitrus', icon: 'reception' },
   ],
   gallery: [
-    '/images/138c57ae-c2da-4e6a-9807-e66a2da19952.jpg',
+    '/images/dcb3d03c-e24d-46fb-9952-e75208882cf6.jpg',
     '/images/45fee306-beb6-4e44-a6c8-7ab50d76eb74.jpg',
     '/images/800d12bb-9424-47e2-89b5-b2eae6861c78.jpg',
-    '/images/8b7ea895-1835-4f74-a399-3ac475c2199d.jpg',
-    '/images/981e4a22-6810-4fc2-bb46-0caee2dd84f2.jpg',
+    '/images/138c57ae-c2da-4e6a-9807-e66a2da19952.jpg',
     '/images/a2f9a558-161e-4a33-b6a2-8a717bd3a2c3.jpg',
+    '/images/981e4a22-6810-4fc2-bb46-0caee2dd84f2.jpg',
+    '/images/8b7ea895-1835-4f74-a399-3ac475c2199d.jpg',
+    '/images/att.iV7C47zig5fX--YmYcO4N2JEsxUFuJkD36n4q0SWA4c.jpeg',
+    '/images/att.lzOK1AUc22G5AtOyoRRmSM5ufMzJ4dN_46qnWCA9_Ms.jpeg',
+    '/images/att.QddXWWcNIUsnCv_zMusF403TXu9ch0gHSAy1R76L3IQ.jpeg',
   ],
   motif: {
     title: 'Wedding Motif',
