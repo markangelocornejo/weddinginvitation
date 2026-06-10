@@ -13,7 +13,7 @@ const timelineIcons = {
 export function TimelineSection() {
   return (
     <section className="relative overflow-hidden px-5 py-24 text-center sm:px-7 sm:py-28">
-      <FloralArtwork className="absolute -right-16 bottom-0 h-60 w-48 rotate-180 opacity-36" />
+      <FloralArtwork className="absolute -right-28 bottom-4 h-56 w-44 rotate-180 opacity-28 sm:-right-20 sm:h-60 sm:w-48 lg:-right-10" />
       <motion.div
         className="relative mx-auto max-w-4xl"
         initial={{ opacity: 0, y: 26 }}
@@ -25,8 +25,8 @@ export function TimelineSection() {
         <h2 className="mt-3 font-script text-[4.1rem] font-normal leading-[0.96] text-[#B8862F] sm:text-[4.8rem] lg:text-[5.5rem]">Our Event Timeline</h2>
         <ParchmentDivider className="mt-6" />
 
-        <div className="relative mx-auto mt-10 grid max-w-md gap-8 text-center sm:max-w-2xl sm:grid-cols-2 sm:gap-3 lg:mt-14 lg:max-w-4xl">
-          <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#D5B892]/80 sm:left-0 sm:right-0 sm:top-[1.45rem] sm:h-px sm:w-full sm:translate-x-0" />
+        <div className="relative mx-auto mt-10 grid max-w-md gap-10 text-center sm:max-w-2xl sm:grid-cols-2 sm:gap-3 lg:mt-14 lg:max-w-4xl">
+          <span className="absolute left-1/2 top-10 h-[calc(100%-5rem)] w-[2px] -translate-x-1/2 bg-[#C08A5A]/60 sm:left-[25%] sm:right-[25%] sm:top-6 sm:h-[2px] sm:w-1/2 sm:translate-x-0 lg:top-7" />
           {invitationData.timeline.map((item, index) => {
             const Icon = timelineIcons[item.icon as keyof typeof timelineIcons] ?? Heart
             return (

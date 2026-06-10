@@ -76,11 +76,6 @@ export function FinerDetailsSection() {
           </div>
         </div>
 
-        {/* Exclusions note */}
-        <p className="mx-auto mt-7 block w-full max-w-xs text-center text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-[#B8862F] lg:max-w-md lg:text-[0.82rem]">
-          {motif.attireNote}
-        </p>
-
       </motion.div>
     </section>
   )

@@ -12,8 +12,7 @@ export const invitationData = {
     subtitle: '18 years in the making',
     tagline: 'The best things take time',
   },
-  heroImage:
-    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=88',
+  heroImage: '/images/Artboard%201.jpg',
   music: '/audio/Can%27t%20Help%20Falling%20In%20Love%20%28Instrumental%29%20Wedding%20March.mp3',
   musicFallbackLabel: 'Wedding song is unavailable. Please check the file in public/audio.',
   invitation: {
@@ -44,7 +43,7 @@ export const invitationData = {
     reception: {
       title: 'Wedding Reception',
       date: 'August 22, 2026',
-      time: '12:00 NN',
+      time: '12:00 PM',
       venue: 'Ravintola Sitrus',
       address: 'Hankasuontie 8, 00390 Helsinki',
       note: 'Reception follows',
@@ -55,7 +54,7 @@ export const invitationData = {
   },
   timeline: [
     { time: '10:00 AM', title: 'Ceremony', detail: 'St Mary Catholic Parish', icon: 'ceremony' },
-    { time: '12:00 NN', title: 'Reception', detail: 'Ravintola Sitrus', icon: 'reception' },
+    { time: '12:00 PM', title: 'Reception', detail: 'Ravintola Sitrus', icon: 'reception' },
   ],
   gallery: [
     '/images/dcb3d03c-e24d-46fb-9952-e75208882cf6.jpg',
@@ -73,7 +72,6 @@ export const invitationData = {
     title: 'Wedding Motif',
     message:
       'We would love to see our guests in colors inspired by champagne, beige, and soft brown.',
-    attireNote: 'Kindly avoid wearing white, ivory, and overly casual attire.',
     colors: [
       { name: 'Champagne', value: '#D5B892' },
       { name: 'Beige', value: '#DCC8AA' },
