@@ -62,7 +62,7 @@ export function FinerDetailsSection() {
               Formal
             </h3>
             <p className="mx-auto mt-3 max-w-sm font-serif text-[1rem] leading-7 text-[#7A5A3A] lg:text-[1.1rem] lg:leading-8">
-              Long gowns, suits, Barong Tagalog, Filipiniana, or elegant dresses are welcome.
+              Suits, Barong Tagalog, Filipiniana, or elegant dresses are welcome.
             </p>
           </div>
           <ParchmentDivider />
