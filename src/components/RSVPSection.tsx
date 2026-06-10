@@ -6,11 +6,41 @@ import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
 
 export function RSVPSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const { rsvp } = invitationData
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSubmitted(true)
+    setErrorMessage('')
+    setIsSubmitting(true)
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const payload = {
+      name: String(formData.get('name') || '').trim(),
+      attendance: String(formData.get('attendance') || ''),
+      guests: String(formData.get('guests') || ''),
+      message: String(formData.get('message') || '').trim(),
+    }
+
+    try {
+      await fetch(rsvp.submissionEndpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      form.reset()
+      setSubmitted(true)
+    } catch {
+      setErrorMessage('We could not send your RSVP. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -98,11 +128,17 @@ export function RSVPSection() {
 
             <button
               className="invitation-button mx-auto mt-2"
+              disabled={isSubmitting}
               type="submit"
             >
               <Send size={15} strokeWidth={1.6} />
-              Send RSVP
+              {isSubmitting ? 'Sending...' : 'Send RSVP'}
             </button>
+            {errorMessage && (
+              <p className="mx-auto max-w-sm text-sm leading-6 text-[#9A4F3E]" role="alert">
+                {errorMessage}
+              </p>
+            )}
           </form>
         )}
       </InvitationCard>

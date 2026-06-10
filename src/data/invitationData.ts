@@ -26,9 +26,10 @@ export const invitationData = {
     deadline: 'To be confirmed',
     deadlineNote: 'Please let us know if you can join us. The RSVP deadline will be announced soon.',
     guestLimit: 5,
+    submissionEndpoint: 'https://script.google.com/macros/s/AKfycby2AAz9SjcAxbZHm3CrGq5IrJip_sJ9t2qq0V_bsRe77XGo75sGoxUgXnlFdo_uTmGT/exec',
     promptTitle: 'Will you join us?',
     promptMessage: 'We would be delighted to celebrate this beautiful day with you.',
-    responseNote: 'Your RSVP will be noted locally for this preview.',
+    responseNote: 'Your RSVP has been sent.',
   },
   event: {
     ceremony: {
