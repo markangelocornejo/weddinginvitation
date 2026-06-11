@@ -13,7 +13,16 @@ export const invitationData = {
     tagline: 'The best things take time',
   },
   heroImage: '/images/Artboard%201.jpg',
-  music: '/audio/Can%27t%20Help%20Falling%20In%20Love%20%28Instrumental%29%20Wedding%20March.mp3',
+  musicPlaylist: [
+    {
+      title: "Can't Help Falling in Love",
+      src: '/audio/Can%27t%20Help%20Falling%20In%20Love%20%28Instrumental%29%20Wedding%20March.mp3',
+    },
+    {
+      title: 'Forevermore',
+      src: '/audio/Forevermore%20-%20Side%20A%20Wedding%20Violin%20Cover.mp3',
+    },
+  ],
   musicFallbackLabel: 'Wedding song is unavailable. Please check the file in public/audio.',
   invitation: {
     eyebrow: '18 years in the making',

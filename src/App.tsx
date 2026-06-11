@@ -8,6 +8,7 @@ import { GallerySection } from './components/GallerySection'
 import { HeroSection } from './components/HeroSection'
 import { InvitationMessage } from './components/InvitationMessage'
 import { MusicToggle } from './components/MusicToggle'
+import { RSVPReminderNudge } from './components/RSVPReminderNudge'
 import { SpiritualSection } from './components/SpiritualSection'
 import { RSVPPromptSection } from './components/RSVPPromptSection'
 import { RSVPSection } from './components/RSVPSection'
@@ -51,6 +52,7 @@ function App() {
       >
         <MusicToggle />
       </div>
+      <RSVPReminderNudge enabled={!isIntroVisible} />
 
       {/* Main invitation content — slides upward seamlessly */}
       <motion.main

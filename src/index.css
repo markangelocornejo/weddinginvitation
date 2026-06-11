@@ -228,6 +228,13 @@ h3 { color: #765c51; font-family: "Cormorant Garamond"; font-size: 1.5rem; font-
     0.018em 0 0 currentColor,
     -0.012em 0 0 currentColor;
 }
+.time-note {
+  color: #5F4638;
+  font-family: "Italiana", "Cormorant Garamond", serif;
+  font-weight: 400;
+  letter-spacing: .02em;
+  text-shadow: 0 0 0 currentColor;
+}
 .timeline-section { background: transparent; }
 .timeline { margin: 2.2rem auto 0; max-width: 460px; text-align: left; }
 .timeline-item { display: grid; gap: 1rem; grid-template-columns: 62px 14px 1fr; min-height: 100px; position: relative; }

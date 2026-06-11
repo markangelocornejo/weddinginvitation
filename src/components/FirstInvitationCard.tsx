@@ -26,7 +26,7 @@ export function FirstInvitationCard({ className = '', compact = false }: FirstIn
       <div className="pointer-events-none absolute inset-[0.46rem] rounded-t-[9.7rem] rounded-b-[1.2rem] border border-[#D5B892]/55" />
 
       {/* Floral decorations */}
-      <FloralArtwork className="absolute -bottom-11 -left-11 h-52 w-40 opacity-82" />
+      <FloralArtwork className={`${compact ? '-bottom-14 -left-12 h-48 w-36' : '-bottom-16 -left-12 h-52 w-40'} absolute opacity-78`} />
       <FloralArtwork className="absolute -right-11 -top-12 h-48 w-36 rotate-180 opacity-62" />
 
       {/* Card content */}
@@ -54,14 +54,16 @@ export function FirstInvitationCard({ className = '', compact = false }: FirstIn
         </h2>
 
         {/* Tagline */}
-        <p className={`${compact ? 'mt-4 text-[1.16rem]' : 'mt-6 text-[1.68rem] sm:text-[1.9rem]'} script-emphasis max-w-[16.5rem] font-script leading-none text-[#A96D4D]`}>
-          {saveTheDate.tagline}
-        </p>
+        <div className={`${compact ? 'mt-5 gap-2.5' : 'mt-7 gap-3'} flex flex-col items-center`}>
+          <p className={`${compact ? 'max-w-[13.75rem] text-[1.18rem]' : 'max-w-[16rem] text-[1.52rem] sm:text-[1.68rem]'} time-note leading-[1.12]`}>
+            {saveTheDate.tagline}
+          </p>
 
-        {/* Date */}
-        <p className={`${compact ? 'mt-3 text-[0.54rem]' : 'mt-3.5 text-[0.78rem]'} whitespace-nowrap font-bold uppercase tracking-[0.2em] text-[#6E4C35]`}>
-          {displayDate}
-        </p>
+          {/* Date */}
+          <p className={`${compact ? 'text-[0.55rem]' : 'text-[0.78rem]'} whitespace-nowrap font-bold uppercase tracking-[0.2em] text-[#5F4638]`}>
+            {displayDate}
+          </p>
+        </div>
       </div>
     </div>
   )
