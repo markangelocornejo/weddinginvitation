@@ -53,6 +53,9 @@ export function RSVPSection() {
         </p>
         <h2 className="mt-3 font-script text-[5rem] font-normal leading-[0.8] text-[#B8862F]">RSVP</h2>
         <ParchmentDivider className="mt-6" />
+        <p className="mx-auto mt-5 inline-flex items-center justify-center rounded-full border border-[#D5B892]/70 bg-[#F5EBDD]/68 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35]">
+          Deadline: {rsvp.deadline}
+        </p>
         <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-[#817068] lg:text-base lg:leading-8">
           {rsvp.deadlineNote}
         </p>

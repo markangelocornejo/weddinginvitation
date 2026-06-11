@@ -54,12 +54,12 @@ export function FirstInvitationCard({ className = '', compact = false }: FirstIn
         </h2>
 
         {/* Tagline */}
-        <p className={`${compact ? 'mt-3 text-[1.05rem]' : 'mt-4 text-[1.45rem]'} max-w-[15rem] font-script leading-[1.1] text-[#C08A5A]`}>
+        <p className={`${compact ? 'mt-4 text-[1.16rem]' : 'mt-6 text-[1.68rem] sm:text-[1.9rem]'} script-emphasis max-w-[16.5rem] font-script leading-none text-[#A96D4D]`}>
           {saveTheDate.tagline}
         </p>
 
         {/* Date */}
-        <p className={`${compact ? 'mt-3 text-[0.5rem]' : 'mt-4 text-[0.72rem]'} font-semibold uppercase tracking-[0.22em] text-[#7A5A3A]`}>
+        <p className={`${compact ? 'mt-3 text-[0.54rem]' : 'mt-3.5 text-[0.78rem]'} whitespace-nowrap font-bold uppercase tracking-[0.2em] text-[#6E4C35]`}>
           {displayDate}
         </p>
       </div>

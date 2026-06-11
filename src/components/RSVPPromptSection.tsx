@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { CalendarHeart, X } from 'lucide-react'
 import { invitationData } from '../data/invitationData'
 import { FloralArtwork, ParchmentDivider } from './BohoDecorations'
 import { InvitationCard } from './InvitationCard'
 
 export function RSVPPromptSection() {
+  const [isReminderOpen, setIsReminderOpen] = useState(false)
   const { gallery, rsvp } = invitationData
 
   return (
@@ -20,6 +23,10 @@ export function RSVPPromptSection() {
           <h2 className="mt-3 font-script text-[4.6rem] font-normal leading-[0.96] text-[#B8862F] lg:text-[5.6rem]">{rsvp.promptTitle}</h2>
           <ParchmentDivider className="mt-6" />
           <p className="mx-auto mt-5 max-w-sm font-serif text-[1.08rem] leading-7 text-[#7A5A3A] lg:max-w-lg lg:text-[1.24rem] lg:leading-8">{rsvp.promptMessage}</p>
+          <p className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-[#D5B892]/70 bg-[#FDF8F0]/82 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35]">
+            <CalendarHeart aria-hidden="true" className="h-4 w-4 text-[#B8862F]" strokeWidth={1.8} />
+            RSVP by {rsvp.deadline}
+          </p>
 
           <div className="relative mx-auto mt-7 h-44 max-w-xs lg:h-52 lg:max-w-sm">
             <img className="absolute left-4 top-3 h-36 w-28 -rotate-6 border-[6px] border-[#FDF8F0] object-cover shadow-[0_10px_18px_rgba(122,90,58,0.18)] lg:h-44 lg:w-36" src={gallery[0]} alt="" />
@@ -32,9 +39,52 @@ export function RSVPPromptSection() {
             />
           </div>
 
-          <a className="invitation-button mt-3" href="#rsvp">RSVP Here</a>
+          <button className="invitation-button mt-3" type="button" onClick={() => setIsReminderOpen(true)}>
+            Reserve RSVP
+          </button>
         </InvitationCard>
       </motion.div>
+
+      {isReminderOpen && (
+        <motion.div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-[#3B2A1A]/35 px-5 backdrop-blur-[2px]"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="rsvp-reminder-title"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="relative w-full max-w-sm border border-[#D5B892]/75 bg-[#FDF8F0] px-6 py-8 text-center shadow-[0_24px_56px_rgba(59,42,26,0.25)]"
+            initial={{ opacity: 0, y: 22, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <button
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-[#7A5A3A] transition-colors hover:bg-[#F5EBDD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
+              type="button"
+              aria-label="Close RSVP reminder"
+              onClick={() => setIsReminderOpen(false)}
+            >
+              <X aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+            </button>
+            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#D5B892] bg-[#F5EBDD] text-[#B8862F]">
+              <CalendarHeart aria-hidden="true" className="h-6 w-6" strokeWidth={1.7} />
+            </span>
+            <p className="mt-5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#7A5A3A]">RSVP reminder</p>
+            <h3 id="rsvp-reminder-title" className="mt-2 font-serif text-[2rem] font-semibold leading-none text-[#3B2A1A]">
+              Reserve your seat
+            </h3>
+            <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#7A5A3A]">
+              Please send your response by <strong className="font-bold text-[#5F4638]">{rsvp.deadline}</strong> so we can prepare a seat for you.
+            </p>
+            <a className="invitation-button mt-6" href="#rsvp" onClick={() => setIsReminderOpen(false)}>
+              Continue to RSVP
+            </a>
+          </motion.div>
+        </motion.div>
+      )}
     </section>
   )
 }

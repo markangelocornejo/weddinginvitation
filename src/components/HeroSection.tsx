@@ -6,7 +6,7 @@ export function HeroSection() {
   const { couple, heroImage, invitation } = invitationData
 
   return (
-    <section className="relative overflow-hidden px-5 py-20 text-center sm:px-7 sm:py-24 lg:py-32">
+    <section id="our-beginning" className="relative overflow-hidden px-5 py-20 text-center sm:px-7 sm:py-24 lg:py-32">
       <FloralCluster className="absolute -left-16 bottom-4 h-52 w-48 opacity-55" />
       <FloralCluster className="absolute -right-20 top-8 h-48 w-44 rotate-180 opacity-45" />
 
@@ -25,7 +25,7 @@ export function HeroSection() {
             Our beginning
           </p>
           <ParchmentDivider className="mt-6" />
-          <p className="mx-auto mt-8 max-w-md font-serif text-[1.15rem] leading-8 text-[#7A5A3A] lg:max-w-sm lg:text-[1.38rem] lg:leading-9">
+          <p className="mx-auto mt-7 max-w-md font-serif text-[1.38rem] font-bold leading-8 text-[#5F4638] min-[390px]:text-[1.55rem] lg:max-w-sm lg:text-[1.72rem] lg:leading-10">
             {invitation.note}
           </p>
         </div>
