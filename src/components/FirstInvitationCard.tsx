@@ -55,7 +55,7 @@ export function FirstInvitationCard({ className = '', compact = false }: FirstIn
 
         {/* Tagline */}
         <div className={`${compact ? 'mt-5 gap-2.5' : 'mt-7 gap-3'} flex flex-col items-center`}>
-          <p className={`${compact ? 'max-w-[13.75rem] text-[1.18rem]' : 'max-w-[16rem] text-[1.52rem] sm:text-[1.68rem]'} time-note leading-[1.12]`}>
+          <p className={`${compact ? 'max-w-[14rem] text-[1.5rem]' : 'max-w-[16rem] text-[1.9rem] sm:text-[2.08rem]'} time-note leading-[0.92]`}>
             {saveTheDate.tagline}
           </p>
 
