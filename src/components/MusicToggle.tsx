@@ -5,6 +5,8 @@ import { invitationData } from '../data/invitationData'
 export function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const toastTimerRef = useRef<number | null>(null)
+  const trackIndexRef = useRef(0)
+  const isSwitchingTrackRef = useRef(false)
   const [trackIndex, setTrackIndex] = useState(0)
   const [toastTrackIndex, setToastTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -38,11 +40,11 @@ export function MusicToggle() {
 
     try {
       await audioRef.current.play()
-      showNowPlaying(trackIndex)
+      showNowPlaying(trackIndexRef.current)
     } catch {
       setIsPlaying(false)
     }
-  }, [isUnavailable, showNowPlaying, trackIndex])
+  }, [isUnavailable, showNowPlaying])
 
   useEffect(() => {
     const playAfterInvitationOpen = () => {
@@ -64,27 +66,35 @@ export function MusicToggle() {
     await playMusic()
   }
 
-  const playTrack = async (nextTrackIndex: number) => {
+  const playTrack = useCallback(async (requestedTrackIndex: number) => {
+    if (!audioRef.current || isUnavailable) return
+
+    const playlistLength = invitationData.musicPlaylist.length
+    const nextTrackIndex = ((requestedTrackIndex % playlistLength) + playlistLength) % playlistLength
     const nextTrack = invitationData.musicPlaylist[nextTrackIndex] ?? invitationData.musicPlaylist[0]
 
+    isSwitchingTrackRef.current = true
+    trackIndexRef.current = nextTrackIndex
     setTrackIndex(nextTrackIndex)
-
-    if (!audioRef.current) return
+    setIsUnavailable(false)
 
     audioRef.current.src = nextTrack.src
     audioRef.current.currentTime = 0
+    audioRef.current.load()
 
     try {
       await audioRef.current.play()
       showNowPlaying(nextTrackIndex)
     } catch {
       setIsPlaying(false)
+    } finally {
+      isSwitchingTrackRef.current = false
     }
-  }
+  }, [isUnavailable, showNowPlaying])
 
-  const playNextTrack = async () => {
-    await playTrack((trackIndex + 1) % invitationData.musicPlaylist.length)
-  }
+  const playNextTrack = useCallback(async () => {
+    await playTrack(trackIndexRef.current + 1)
+  }, [playTrack])
 
   return (
     <div className="relative flex flex-col items-end">
@@ -95,7 +105,7 @@ export function MusicToggle() {
         onPlay={() => setIsPlaying(true)}
         onPause={() => {
           setIsPlaying(false)
-          setIsToastVisible(false)
+          if (!isSwitchingTrackRef.current) setIsToastVisible(false)
         }}
         onEnded={() => {
           void playNextTrack()
@@ -121,7 +131,7 @@ export function MusicToggle() {
               </p>
             </div>
             <button
-              className="shrink-0 rounded-full border border-[#D5B892] bg-[#F5EBDD] px-2.5 py-1.5 text-[0.55rem] font-bold uppercase tracking-[0.1em] text-[#6E4C35] transition-colors hover:bg-[#EADBC5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
+              className="shrink-0 rounded-full border border-[#D5B892] bg-[#F5EBDD] px-2.5 py-1.5 text-[0.56rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35] transition-colors hover:bg-[#EADBC5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
               type="button"
               onClick={() => {
                 void playNextTrack()

@@ -87,7 +87,7 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
           RSVP Now
         </button>
         <button
-          className="rounded-full border border-[#D5B892]/75 bg-transparent px-4 py-2.5 text-[0.56rem] font-bold uppercase tracking-[0.12em] text-[#6E4C35] transition-colors hover:bg-[#F5EBDD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
+          className="rounded-full border border-[#D5B892]/75 bg-transparent px-4 py-2.5 text-[0.56rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35] transition-colors hover:bg-[#F5EBDD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
           type="button"
           onClick={dismiss}
         >
