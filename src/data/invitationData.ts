@@ -19,8 +19,8 @@ export const invitationData = {
       src: '/audio/Can%27t%20Help%20Falling%20In%20Love%20%28Instrumental%29%20Wedding%20March.mp3',
     },
     {
-      title: 'Forevermore',
-      src: '/audio/Forevermore%20-%20Side%20A%20Wedding%20Violin%20Cover.mp3',
+      title: "You're Still the One",
+      src: '/audio/Shania%20Twain%20-%20You%27re%20Still%20The%20One%20%28Lyrics%29.mp3',
     },
   ],
   musicFallbackLabel: 'Wedding song is unavailable. Please check the file in public/audio.',

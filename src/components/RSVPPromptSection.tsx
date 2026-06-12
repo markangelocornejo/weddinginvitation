@@ -56,7 +56,7 @@ export function RSVPPromptSection() {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="relative w-full max-w-sm border border-[#D5B892]/75 bg-[#FDF8F0] px-6 py-8 text-center shadow-[0_24px_56px_rgba(59,42,26,0.25)]"
+            className="relative w-full max-w-sm border border-[#D5B892]/75 bg-[#FDF8F0] px-6 py-7 text-center shadow-[0_24px_56px_rgba(59,42,26,0.25)]"
             initial={{ opacity: 0, y: 22, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
@@ -69,17 +69,17 @@ export function RSVPPromptSection() {
             >
               <X aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
             </button>
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#D5B892] bg-[#F5EBDD] text-[#B8862F]">
-              <CalendarHeart aria-hidden="true" className="h-6 w-6" strokeWidth={1.7} />
+            <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#D5B892] bg-[#F5EBDD] text-[#B8862F]">
+              <CalendarHeart aria-hidden="true" className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.7} />
             </span>
-            <p className="mt-5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#7A5A3A]">RSVP reminder</p>
-            <h3 id="rsvp-reminder-title" className="mt-2 font-serif text-[2rem] font-semibold leading-none text-[#3B2A1A]">
+            <p className="mt-4 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-[#7A5A3A]">RSVP reminder</p>
+            <h3 id="rsvp-reminder-title" className="mt-1.5 font-serif text-[1.45rem] font-semibold leading-tight text-[#3B2A1A]">
               Reserve your seat
             </h3>
-            <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#7A5A3A]">
-              Please send your response by <strong className="font-bold text-[#5F4638]">{rsvp.deadline}</strong> so we can prepare a seat for you.
+            <p className="mx-auto mt-3 max-w-xs text-[0.86rem] leading-6 text-[#7A5A3A]">
+              Please send your response by <strong className="font-semibold text-[#5F4638]">{rsvp.deadline}</strong> so we can prepare a seat for you.
             </p>
-            <a className="invitation-button mt-6" href="#rsvp" onClick={() => setIsReminderOpen(false)}>
+            <a className="invitation-button mt-5 px-4 py-2.5 text-[0.56rem]" href="#rsvp" onClick={() => setIsReminderOpen(false)}>
               Continue to RSVP
             </a>
           </motion.div>
