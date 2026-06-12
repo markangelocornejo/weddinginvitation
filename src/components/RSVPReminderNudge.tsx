@@ -69,13 +69,13 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
       <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#D5B892] bg-[#F5EBDD] text-[#B8862F]">
         <CalendarHeart aria-hidden="true" className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.7} />
       </span>
-      <p className="mt-3 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-[#7A5A3A]">
+      <p className="mt-3 text-[0.55rem] font-bold uppercase tracking-[0.16em] text-[#7A5A3A]">
         Gentle reminder
       </p>
-      <h3 id="rsvp-nudge-title" className="mt-1 font-serif text-[1.28rem] font-semibold leading-tight text-[#3B2A1A]">
+      <h3 id="rsvp-nudge-title" className="mt-1 font-serif text-[1.28rem] font-bold leading-tight text-[#3B2A1A]">
         Kindly RSVP by {rsvp.deadline}
       </h3>
-      <p className="mx-auto mt-2 max-w-xs text-[0.86rem] leading-6 text-[#7A5A3A]">
+      <p className="mx-auto mt-2 max-w-xs text-[0.86rem] font-medium leading-6 text-[#7A5A3A]">
         Help us reserve your seat for the celebration.
       </p>
       <div className="mt-4 flex items-center justify-center gap-2">
@@ -87,7 +87,7 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
           RSVP Now
         </button>
         <button
-          className="rounded-full border border-[#D5B892]/75 bg-transparent px-4 py-2.5 text-[0.56rem] font-semibold uppercase tracking-[0.12em] text-[#6E4C35] transition-colors hover:bg-[#F5EBDD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
+          className="rounded-full border border-[#D5B892]/75 bg-transparent px-4 py-2.5 text-[0.56rem] font-bold uppercase tracking-[0.12em] text-[#6E4C35] transition-colors hover:bg-[#F5EBDD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8862F]"
           type="button"
           onClick={dismiss}
         >

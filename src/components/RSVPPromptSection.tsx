@@ -72,12 +72,12 @@ export function RSVPPromptSection() {
             <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#D5B892] bg-[#F5EBDD] text-[#B8862F]">
               <CalendarHeart aria-hidden="true" className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.7} />
             </span>
-            <p className="mt-4 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-[#7A5A3A]">RSVP reminder</p>
-            <h3 id="rsvp-reminder-title" className="mt-1.5 font-serif text-[1.45rem] font-semibold leading-tight text-[#3B2A1A]">
+            <p className="mt-4 text-[0.55rem] font-bold uppercase tracking-[0.16em] text-[#7A5A3A]">RSVP reminder</p>
+            <h3 id="rsvp-reminder-title" className="mt-1.5 font-serif text-[1.45rem] font-bold leading-tight text-[#3B2A1A]">
               Reserve your seat
             </h3>
-            <p className="mx-auto mt-3 max-w-xs text-[0.86rem] leading-6 text-[#7A5A3A]">
-              Please send your response by <strong className="font-semibold text-[#5F4638]">{rsvp.deadline}</strong> so we can prepare a seat for you.
+            <p className="mx-auto mt-3 max-w-xs text-center text-[0.86rem] font-medium leading-6 text-[#7A5A3A]">
+              Please send your response by <strong className="font-bold text-[#5F4638]">{rsvp.deadline}</strong> so we can prepare a seat for you.
             </p>
             <a className="invitation-button mt-5 px-4 py-2.5 text-[0.56rem]" href="#rsvp" onClick={() => setIsReminderOpen(false)}>
               Continue to RSVP
