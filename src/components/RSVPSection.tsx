@@ -25,19 +25,22 @@ export function RSVPSection() {
     }
 
     try {
-      await fetch(rsvp.submissionEndpoint, {
+      const response = await fetch(rsvp.submissionEndpoint, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(payload),
       })
 
+      if (!response.ok) {
+        throw new Error('RSVP submission failed')
+      }
+
       form.reset()
       setSubmitted(true)
     } catch {
-      setErrorMessage('We could not send your RSVP. Please try again.')
+      setErrorMessage('We could not confirm your RSVP. Please try again.')
     } finally {
       setIsSubmitting(false)
     }

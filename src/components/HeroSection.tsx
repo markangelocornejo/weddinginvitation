@@ -25,9 +25,11 @@ export function HeroSection() {
             Our beginning
           </p>
           <ParchmentDivider className="mt-6" />
-          <p className="time-note mx-auto mt-6 w-fit max-w-[15rem] text-center text-[1.7rem] leading-[1.05] min-[390px]:max-w-[17rem] min-[390px]:text-[1.95rem] lg:max-w-sm lg:text-[2.25rem]">
-            {invitation.note}
-          </p>
+          <div className="mt-6 flex w-full justify-center">
+            <p className="time-note w-full max-w-[17rem] text-center text-[1.7rem] leading-[1.05] min-[390px]:text-[1.95rem] lg:max-w-sm lg:text-[2.25rem]">
+              {invitation.note}
+            </p>
+          </div>
         </div>
 
         <div className="relative mx-auto mt-8 w-full max-w-sm lg:mt-0 lg:max-w-md">

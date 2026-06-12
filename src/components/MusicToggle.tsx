@@ -7,13 +7,15 @@ export function MusicToggle() {
   const toastTimerRef = useRef<number | null>(null)
   const trackIndexRef = useRef(0)
   const isSwitchingTrackRef = useRef(false)
+  const failedTrackIndexesRef = useRef<Set<number>>(new Set())
   const [trackIndex, setTrackIndex] = useState(0)
   const [toastTrackIndex, setToastTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isUnavailable, setIsUnavailable] = useState(false)
+  const [failedTrackCount, setFailedTrackCount] = useState(0)
   const [isToastVisible, setIsToastVisible] = useState(false)
   const currentTrack = invitationData.musicPlaylist[trackIndex] ?? invitationData.musicPlaylist[0]
   const toastTrack = invitationData.musicPlaylist[toastTrackIndex] ?? currentTrack
+  const isUnavailable = failedTrackCount >= invitationData.musicPlaylist.length
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = 0.45
@@ -35,8 +37,65 @@ export function MusicToggle() {
     }, 5000)
   }, [])
 
+  const getPlayableTrackIndex = useCallback((requestedTrackIndex: number) => {
+    const playlistLength = invitationData.musicPlaylist.length
+    if (!playlistLength) return -1
+
+    for (let offset = 0; offset < playlistLength; offset += 1) {
+      const candidateIndex = ((requestedTrackIndex + offset) % playlistLength + playlistLength) % playlistLength
+      if (!failedTrackIndexesRef.current.has(candidateIndex)) return candidateIndex
+    }
+
+    return -1
+  }, [])
+
+  const markTrackUnavailable = useCallback((failedTrackIndex: number) => {
+    failedTrackIndexesRef.current.add(failedTrackIndex)
+    const nextFailedTrackCount = failedTrackIndexesRef.current.size
+    setFailedTrackCount(nextFailedTrackCount)
+    return nextFailedTrackCount
+  }, [])
+
+  const playTrack = useCallback(async (requestedTrackIndex: number) => {
+    if (!audioRef.current || isUnavailable) return
+
+    const nextTrackIndex = getPlayableTrackIndex(requestedTrackIndex)
+    if (nextTrackIndex < 0) {
+      setFailedTrackCount(invitationData.musicPlaylist.length)
+      setIsPlaying(false)
+      return
+    }
+
+    const nextTrack = invitationData.musicPlaylist[nextTrackIndex] ?? invitationData.musicPlaylist[0]
+
+    isSwitchingTrackRef.current = true
+    trackIndexRef.current = nextTrackIndex
+    setTrackIndex(nextTrackIndex)
+
+    audioRef.current.src = nextTrack.src
+    audioRef.current.currentTime = 0
+    audioRef.current.load()
+
+    try {
+      await audioRef.current.play()
+      showNowPlaying(nextTrackIndex)
+    } catch {
+      setIsPlaying(false)
+    } finally {
+      isSwitchingTrackRef.current = false
+    }
+  }, [getPlayableTrackIndex, isUnavailable, showNowPlaying])
+
   const playMusic = useCallback(async () => {
     if (!audioRef.current || isUnavailable) return
+
+    if (failedTrackIndexesRef.current.has(trackIndexRef.current)) {
+      const nextTrackIndex = getPlayableTrackIndex(trackIndexRef.current + 1)
+      if (nextTrackIndex >= 0) {
+        await playTrack(nextTrackIndex)
+      }
+      return
+    }
 
     try {
       await audioRef.current.play()
@@ -44,7 +103,7 @@ export function MusicToggle() {
     } catch {
       setIsPlaying(false)
     }
-  }, [isUnavailable, showNowPlaying])
+  }, [getPlayableTrackIndex, isUnavailable, playTrack, showNowPlaying])
 
   useEffect(() => {
     const playAfterInvitationOpen = () => {
@@ -66,32 +125,6 @@ export function MusicToggle() {
     await playMusic()
   }
 
-  const playTrack = useCallback(async (requestedTrackIndex: number) => {
-    if (!audioRef.current || isUnavailable) return
-
-    const playlistLength = invitationData.musicPlaylist.length
-    const nextTrackIndex = ((requestedTrackIndex % playlistLength) + playlistLength) % playlistLength
-    const nextTrack = invitationData.musicPlaylist[nextTrackIndex] ?? invitationData.musicPlaylist[0]
-
-    isSwitchingTrackRef.current = true
-    trackIndexRef.current = nextTrackIndex
-    setTrackIndex(nextTrackIndex)
-    setIsUnavailable(false)
-
-    audioRef.current.src = nextTrack.src
-    audioRef.current.currentTime = 0
-    audioRef.current.load()
-
-    try {
-      await audioRef.current.play()
-      showNowPlaying(nextTrackIndex)
-    } catch {
-      setIsPlaying(false)
-    } finally {
-      isSwitchingTrackRef.current = false
-    }
-  }, [isUnavailable, showNowPlaying])
-
   const playNextTrack = useCallback(async () => {
     await playTrack(trackIndexRef.current + 1)
   }, [playTrack])
@@ -111,8 +144,11 @@ export function MusicToggle() {
           void playNextTrack()
         }}
         onError={() => {
-          setIsUnavailable(true)
+          const nextFailedTrackCount = markTrackUnavailable(trackIndexRef.current)
           setIsPlaying(false)
+          if (nextFailedTrackCount < invitationData.musicPlaylist.length) {
+            void playNextTrack()
+          }
         }}
       />
       {isToastVisible && !isUnavailable && (

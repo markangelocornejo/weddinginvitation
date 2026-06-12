@@ -9,6 +9,22 @@ type RSVPReminderNudgeProps = {
 
 const storageKey = 'ray-ruby-rsvp-nudge-dismissed'
 
+const isReminderDismissed = () => {
+  try {
+    return window.sessionStorage.getItem(storageKey) === 'true'
+  } catch {
+    return false
+  }
+}
+
+const saveReminderDismissed = () => {
+  try {
+    window.sessionStorage.setItem(storageKey, 'true')
+  } catch {
+    // Some browsers block sessionStorage in private/restricted modes.
+  }
+}
+
 const isRSVPSectionNearby = () => {
   const rsvpSection = document.getElementById('rsvp')
   if (!rsvpSection) return false
@@ -23,7 +39,7 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
 
   useEffect(() => {
     if (!enabled) return
-    if (window.sessionStorage.getItem(storageKey) === 'true') return
+    if (isReminderDismissed()) return
 
     const reminderTimer = window.setTimeout(() => {
       if (!isRSVPSectionNearby()) setIsVisible(true)
@@ -44,12 +60,12 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
   }, [isVisible])
 
   const dismiss = () => {
-    window.sessionStorage.setItem(storageKey, 'true')
+    saveReminderDismissed()
     setIsVisible(false)
   }
 
   const goToRSVP = () => {
-    window.sessionStorage.setItem(storageKey, 'true')
+    saveReminderDismissed()
     setIsVisible(false)
     document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
