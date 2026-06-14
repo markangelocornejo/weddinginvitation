@@ -8,6 +8,7 @@ export function MusicToggle() {
   const trackIndexRef = useRef(0)
   const isSwitchingTrackRef = useRef(false)
   const shouldResumeAfterTrackChangeRef = useRef(false)
+  const preloadedAudioRefs = useRef<HTMLAudioElement[]>([])
   const failedTrackIndexesRef = useRef<Set<number>>(new Set())
   const [trackIndex, setTrackIndex] = useState(0)
   const [toastTrackIndex, setToastTrackIndex] = useState(0)
@@ -20,6 +21,23 @@ export function MusicToggle() {
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = 0.45
+  }, [])
+
+  useEffect(() => {
+    preloadedAudioRefs.current = invitationData.musicPlaylist.map((track) => {
+      const audio = new Audio(track.src)
+      audio.preload = 'auto'
+      audio.load()
+      return audio
+    })
+
+    return () => {
+      preloadedAudioRefs.current.forEach((audio) => {
+        audio.pause()
+        audio.removeAttribute('src')
+      })
+      preloadedAudioRefs.current = []
+    }
   }, [])
 
   useEffect(() => {
@@ -94,8 +112,11 @@ export function MusicToggle() {
 
     audioRef.current.autoplay = true
     audioRef.current.src = nextTrack.src
-    audioRef.current.currentTime = 0
-    audioRef.current.load()
+    try {
+      audioRef.current.currentTime = 0
+    } catch {
+      // Some browsers only allow seeking after metadata loads; playback still resumes via ready events.
+    }
 
     await playSelectedTrack(nextTrackIndex)
   }, [getPlayableTrackIndex, isUnavailable, playSelectedTrack])
