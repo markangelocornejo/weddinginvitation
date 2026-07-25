@@ -32,8 +32,8 @@ export const invitationData = {
     story: [],
   },
   rsvp: {
-    deadline: 'July 20, 2026',
-    deadlineNote: 'Please let us know if you can join us by July 20, 2026 so we can reserve your seat.',
+    deadline: 'August 10, 2026',
+    deadlineNote: 'Please let us know if you can join us by August 10, 2026 so we can reserve your seat.',
     guestLimit: 5,
     submissionEndpoint: 'https://script.google.com/macros/s/AKfycby2AAz9SjcAxbZHm3CrGq5IrJip_sJ9t2qq0V_bsRe77XGo75sGoxUgXnlFdo_uTmGT/exec',
     promptTitle: 'Will you join us?',
