@@ -32,13 +32,17 @@ export const invitationData = {
     story: [],
   },
   rsvp: {
+    isClosed: true,
     deadline: 'August 10, 2026',
-    deadlineNote: 'Please let us know if you can join us by August 10, 2026 so we can reserve your seat.',
+    deadlineNote: 'The RSVP deadline was August 10, 2026.',
     guestLimit: 5,
     submissionEndpoint: 'https://script.google.com/macros/s/AKfycby2AAz9SjcAxbZHm3CrGq5IrJip_sJ9t2qq0V_bsRe77XGo75sGoxUgXnlFdo_uTmGT/exec',
     promptTitle: 'Will you join us?',
     promptMessage: 'We would be delighted to celebrate this beautiful day with you.',
     responseNote: 'Your RSVP has been sent.',
+    closedTitle: 'RSVP is now closed',
+    closedMessage: 'The deadline to RSVP (August 10, 2026) has passed.',
+    closedNote: 'Thank you to everyone who responded. We are so excited to celebrate with you!',
   },
   event: {
     ceremony: {

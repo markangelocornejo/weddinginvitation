@@ -57,13 +57,25 @@ export function RSVPSection() {
         <h2 className="mt-3 font-script text-[5rem] font-normal leading-[0.8] text-[#B8862F]">RSVP</h2>
         <ParchmentDivider className="mt-6" />
         <p className="mx-auto mt-5 inline-flex items-center justify-center rounded-full border border-[#D5B892]/70 bg-[#F5EBDD]/68 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35]">
-          Deadline: {rsvp.deadline}
+          {rsvp.isClosed ? 'RSVP Closed' : `Deadline: ${rsvp.deadline}`}
         </p>
         <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-[#817068] lg:text-base lg:leading-8">
           {rsvp.deadlineNote}
         </p>
 
-        {submitted ? (
+        {rsvp.isClosed ? (
+          <div
+            className="mx-auto mt-9 flex max-w-md flex-col items-center border-y border-[#D5B892]/70 px-4 py-9 text-center lg:max-w-lg"
+            role="status"
+          >
+            <h3 className="font-serif text-[1.95rem] font-medium leading-[1.05] text-[#3B2A1A] lg:text-[2.25rem]">
+              {rsvp.closedTitle || 'RSVP is now closed'}
+            </h3>
+            <p className="mx-auto mt-4 max-w-md font-serif text-[1rem] leading-7 text-[#7A5A3A] lg:text-[1.1rem] lg:leading-8">
+              {rsvp.closedNote || 'Thank you for your responses!'}
+            </p>
+          </div>
+        ) : submitted ? (
           <div
             className="mx-auto mt-9 flex max-w-md flex-col items-center border-y border-[#D5B892]/70 px-4 py-9 text-center lg:max-w-lg"
             role="status"

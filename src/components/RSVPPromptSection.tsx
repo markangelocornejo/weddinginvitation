@@ -25,7 +25,7 @@ export function RSVPPromptSection() {
           <p className="mx-auto mt-5 max-w-sm font-serif text-[1.08rem] leading-7 text-[#7A5A3A] lg:max-w-lg lg:text-[1.24rem] lg:leading-8">{rsvp.promptMessage}</p>
           <p className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-[#D5B892]/70 bg-[#FDF8F0]/82 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#6E4C35]">
             <CalendarHeart aria-hidden="true" className="h-4 w-4 text-[#B8862F]" strokeWidth={1.8} />
-            RSVP by {rsvp.deadline}
+            {rsvp.isClosed ? 'RSVP Closed' : `RSVP by ${rsvp.deadline}`}
           </p>
 
           <div className="relative mx-auto mt-7 h-44 max-w-xs lg:h-52 lg:max-w-sm">
@@ -39,9 +39,18 @@ export function RSVPPromptSection() {
             />
           </div>
 
-          <button className="invitation-button mt-3" type="button" onClick={() => setIsReminderOpen(true)}>
-            Reserve RSVP
-          </button>
+          <a
+            className="invitation-button mt-3"
+            href="#rsvp"
+            onClick={(e) => {
+              if (!rsvp.isClosed) {
+                e.preventDefault()
+                setIsReminderOpen(true)
+              }
+            }}
+          >
+            {rsvp.isClosed ? 'RSVP Status' : 'Reserve RSVP'}
+          </a>
         </InvitationCard>
       </motion.div>
 

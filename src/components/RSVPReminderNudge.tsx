@@ -38,7 +38,7 @@ export function RSVPReminderNudge({ enabled }: RSVPReminderNudgeProps) {
   const { rsvp } = invitationData
 
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled || rsvp.isClosed) return
     if (isReminderDismissed()) return
 
     const reminderTimer = window.setTimeout(() => {
